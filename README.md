@@ -68,8 +68,6 @@ QTest
 На вход принимаются текстовые файлы в формате [txt](https://open-file.ru/types/txt)
 
 ## 8. Формат выходных данных
-
-## 8. Формат выходных данных
 На выходе: (на выбор пользователя)
 1. Вероятности принадлежности введенного текста к некоторому набору классов выбранных пользователем
 2. Наибольшая вероятность принадлежности текста к имеющимся классам текущей библиотеки
@@ -91,8 +89,3 @@ QTest
 ## 15. Ссылки и литература
 1.	DataReview.info [статья](http://datareview.info/article/6-prostyih-shagov-dlya-osvoeniya-naivnogo-bayesovskogo-algoritma-s-primerom-koda-na-python/)
 2.	4gophers.ru [статья](https://4gophers.ru/articles/klassifikaciya-teksta/#.WpWumSXFLX6)
-=======
-## 14. Тестирование
-## 15. Ссылки и литература
-https://4gophers.ru/articles/klassifikaciya-teksta/#.Wpc3D-jFJPb
-
