@@ -1,4 +1,4 @@
-#include <QtTest/QtTest>
+п»ї#include <QtTest/QtTest>
 #include <string>
 #include"stemmer.h"
 
@@ -15,24 +15,24 @@ void TestTokenization::test_stemmer_data()
 {
 	QTest::addColumn<wstring>("Word");
 	QTest::addColumn<wstring>("Stem");
-	//политика и формы слова
-	wstring word1(L"политический");
-	wstring stem1(L"политическ");
+	//РїРѕР»РёС‚РёРєР° Рё С„РѕСЂРјС‹ СЃР»РѕРІР°
+	wstring word1(L"РїРѕР»РёС‚РёС‡РµСЃРєРёР№");
+	wstring stem1(L"РїРѕР»РёС‚РёС‡РµСЃРє");
 
-	wstring word2(L"политика");
-	wstring stem2(L"политик"); 
+	wstring word2(L"РїРѕР»РёС‚РёРєР°");
+	wstring stem2(L"РїРѕР»РёС‚РёРє"); 
 
-	wstring word3(L"политикою");
-	wstring stem3(L"политик"); 
+	wstring word3(L"РїРѕР»РёС‚РёРєРѕСЋ");
+	wstring stem3(L"РїРѕР»РёС‚РёРє"); 
 	
-	wstring word4(L"политизировать");
-	wstring stem4(L"политизирова"); 
+	wstring word4(L"РїРѕР»РёС‚РёР·РёСЂРѕРІР°С‚СЊ");
+	wstring stem4(L"РїРѕР»РёС‚РёР·РёСЂРѕРІР°"); 
 
-	wstring word5(L"политически");
-	wstring stem5(L"политическ"); 
+	wstring word5(L"РїРѕР»РёС‚РёС‡РµСЃРєРё");
+	wstring stem5(L"РїРѕР»РёС‚РёС‡РµСЃРє"); 
 
-	wstring word6(L"политология");
-	wstring stem6(L"политолог"); 
+	wstring word6(L"РїРѕР»РёС‚РѕР»РѕРіРёСЏ");
+	wstring stem6(L"РїРѕР»РёС‚РѕР»РѕРі"); 
 
 	QTest::newRow("word_1") << word1 << stem1;
 	QTest::newRow("word_2") << word2 << stem2;
@@ -41,30 +41,30 @@ void TestTokenization::test_stemmer_data()
 	QTest::newRow("word_5") << word5 << stem5;
 	QTest::newRow("word_6") << word6 << stem6;
 
-	//экономика и формы слова
-	wstring word7(L"экономика");
-	wstring stem7(L"экономик"); 
+	//СЌРєРѕРЅРѕРјРёРєР° Рё С„РѕСЂРјС‹ СЃР»РѕРІР°
+	wstring word7(L"СЌРєРѕРЅРѕРјРёРєР°");
+	wstring stem7(L"СЌРєРѕРЅРѕРјРёРє"); 
 
-	wstring word8(L"экономического");
-	wstring stem8(L"экономическ");
+	wstring word8(L"СЌРєРѕРЅРѕРјРёС‡РµСЃРєРѕРіРѕ");
+	wstring stem8(L"СЌРєРѕРЅРѕРјРёС‡РµСЃРє");
 
-	wstring word9(L"экономический");
-	wstring stem9(L"экономическ");
+	wstring word9(L"СЌРєРѕРЅРѕРјРёС‡РµСЃРєРёР№");
+	wstring stem9(L"СЌРєРѕРЅРѕРјРёС‡РµСЃРє");
 
-	wstring word10(L"экономическому");
-	wstring stem10(L"экономическ");
+	wstring word10(L"СЌРєРѕРЅРѕРјРёС‡РµСЃРєРѕРјСѓ");
+	wstring stem10(L"СЌРєРѕРЅРѕРјРёС‡РµСЃРє");
 
-	wstring word11(L"экономист");
-	wstring stem11(L"экономист"); 
+	wstring word11(L"СЌРєРѕРЅРѕРјРёСЃС‚");
+	wstring stem11(L"СЌРєРѕРЅРѕРјРёСЃС‚"); 
 
-	wstring word12(L"экономный");
-	wstring stem12(L"экономн"); 
+	wstring word12(L"СЌРєРѕРЅРѕРјРЅС‹Р№");
+	wstring stem12(L"СЌРєРѕРЅРѕРјРЅ"); 
 
-	wstring word13(L"макроэкономика");
-	wstring stem13(L"макроэкономик"); 
+	wstring word13(L"РјР°РєСЂРѕСЌРєРѕРЅРѕРјРёРєР°");
+	wstring stem13(L"РјР°РєСЂРѕСЌРєРѕРЅРѕРјРёРє"); 
 
-	wstring word14(L"экономических");
-	wstring stem14(L"экономическ");
+	wstring word14(L"СЌРєРѕРЅРѕРјРёС‡РµСЃРєРёС…");
+	wstring stem14(L"СЌРєРѕРЅРѕРјРёС‡РµСЃРє");
 
 	QTest::newRow("word_7") << word7 << stem7;
 	QTest::newRow("word_8") << word8 << stem8;
@@ -74,24 +74,24 @@ void TestTokenization::test_stemmer_data()
 	QTest::newRow("word_12") << word12 << stem12;
 	QTest::newRow("word_13") << word13 << stem13;
 	QTest::newRow("word_14") << word14 << stem14;
-	//другие слова
-	wstring word15(L"дисквалификация");
-	wstring stem15(L"дисквалификац"); 
+	//РґСЂСѓРіРёРµ СЃР»РѕРІР°
+	wstring word15(L"РґРёСЃРєРІР°Р»РёС„РёРєР°С†РёСЏ");
+	wstring stem15(L"РґРёСЃРєРІР°Р»РёС„РёРєР°С†"); 
 
-	wstring word16(L"спортивный");
-	wstring stem16(L"спортивн");
+	wstring word16(L"СЃРїРѕСЂС‚РёРІРЅС‹Р№");
+	wstring stem16(L"СЃРїРѕСЂС‚РёРІРЅ");
 
-	wstring word17(L"новостной");
-	wstring stem17(L"новостн");
+	wstring word17(L"РЅРѕРІРѕСЃС‚РЅРѕР№");
+	wstring stem17(L"РЅРѕРІРѕСЃС‚РЅ");
 
-	wstring word18(L"информационный");
-	wstring stem18(L"информацион");
+	wstring word18(L"РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅС‹Р№");
+	wstring stem18(L"РёРЅС„РѕСЂРјР°С†РёРѕРЅ");
 
-	wstring word19(L"происшествие");
-	wstring stem19(L"происшеств");
+	wstring word19(L"РїСЂРѕРёСЃС€РµСЃС‚РІРёРµ");
+	wstring stem19(L"РїСЂРѕРёСЃС€РµСЃС‚РІ");
 
-	wstring word20(L"отстранившись");
-	wstring stem20(L"отстран");
+	wstring word20(L"РѕС‚СЃС‚СЂР°РЅРёРІС€РёСЃСЊ");
+	wstring stem20(L"РѕС‚СЃС‚СЂР°РЅ");
 
 	QTest::newRow("word_15") << word15 << stem15;
 	QTest::newRow("word_16") << word16 << stem16;
@@ -100,20 +100,20 @@ void TestTokenization::test_stemmer_data()
 	QTest::newRow("word_19") << word19 << stem19;
 	QTest::newRow("word_20") << word20 << stem20;
 
-	wstring word21(L"страхующийся");
-	wstring stem21(L"страх");
+	wstring word21(L"СЃС‚СЂР°С…СѓСЋС‰РёР№СЃСЏ");
+	wstring stem21(L"СЃС‚СЂР°С…");
 
-	wstring word22(L"пополняясь");
-	wstring stem22(L"пополн");
+	wstring word22(L"РїРѕРїРѕР»РЅСЏСЏСЃСЊ");
+	wstring stem22(L"РїРѕРїРѕР»РЅ");
 
-	wstring word23(L"крупнейшее");
-	wstring stem23(L"крупн");
+	wstring word23(L"РєСЂСѓРїРЅРµР№С€РµРµ");
+	wstring stem23(L"РєСЂСѓРїРЅ");
 
-	wstring word24(L"стремящихся");
-	wstring stem24(L"стремя");
+	wstring word24(L"СЃС‚СЂРµРјСЏС‰РёС…СЃСЏ");
+	wstring stem24(L"СЃС‚СЂРµРјСЏ");
 
-	wstring word25(L"опасность");
-	wstring stem25(L"опасн");
+	wstring word25(L"РѕРїР°СЃРЅРѕСЃС‚СЊ");
+	wstring stem25(L"РѕРїР°СЃРЅ");
 
 	QTest::newRow("word_21") << word21 << stem21;
 	QTest::newRow("word_22") << word22 << stem22; 
