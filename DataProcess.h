@@ -1,6 +1,9 @@
 #ifndef DATA_PROCESS_H
 #define DATA_PROCESS__H
 #include "Headers.h"
+#include "stopwords.h"
+#include "stemmer.h"
+#include "stemming.h"
 
 #define STOP_WORDS_FILE_NAME_RUS "StopWords.txt"
 
@@ -10,16 +13,14 @@ class DataProcess
 {
 public:
 	DataProcess();
-	DataProcess(wstring data);
-	bool InitStopWords(string filename);
 	vector<wstring> GetData(void);
-	wstring Stemmer(wstring word);
 	void Tokeniaztion(wstring line);
-	void DeleteStopWords(void);
+	//void updateMap(vector <wstring> words);
+	void processingWords(vector <wstring>* words);
 private:
-	multimap<wchar_t, wstring> stop_words;
 	vector<wstring> data;
-
+	StopWords stopWords;
+	stemming::russian_stem <wstring> stem;
 };
 #pragma once
 #endif

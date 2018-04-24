@@ -13,6 +13,6 @@
 #define DEFAULT_CLASSES_AMOUNT 5
 #define TRAINING_TEXTS_AMOUNT 40
 #define FILE_EXTENSION ".txt"
-typedef map<wstring, int> classmap;
+//typedef map<wstring, int> classmap;
 #pragma once
 #endif
