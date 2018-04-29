@@ -1,19 +1,131 @@
+/*!
+ \file
+ \brief Заголовочный файл с описанием классов
+
+ Данный файл содержит в себе определения основных
+ классов, используемых в демонстрационной программе
+ */
 #ifndef BAYES_CLASSIFIER_H
 #define BAYES_CLASSIFIER_H
 
 #include "Headers.h"
+#include "Text.h"
+#include "DataProcess.h"
 using namespace std;
+enum exe_mode 
+{
+	SINGLE,
+	EXTENDED,
+};
 
+/**
+ \brief Класс Наивная Байесовская Классификация
+ Базовый класс программы, реализующий вычисление вероятности принадлежности текста с помощью теоремы Байеса к одному или нескольким классов из перечня доступных
+ */
 class BayesClassifier
 {
-public:
-	void Run(void);
 private:
-	void Train(void);
+	map<wstring, classmap> training_map;	///<Таблица содержащая имена классов, список слов соответствующих каждому классу и частоту встретившихся слов в обучающей выборке
+	classmap exe_map; ///<Таблица содержащая список обработанных слов с их частотой, встретившихся в входном тексте
+	map<wstring, int> class_metha;	///<Таблица содержащая имя класса и число текстов обучающей выборки относящихся к этому классу
+	DataProcess data_processor; ///<Класс с методами для обработки текста (стеммер + удаление стоп слов)
+	vector<double> results; ///<Список результатов
+	int texts_amount = 0; ///<Число текстов обучающей выборки
+	exe_mode mode_; ///<Режим выполнения программы 
+	wstring classname = NULL; ///<Имя класса, принадлежность к которому хотим проверять, по дефолту NULL
+public:
+	/**
+	Точка входа. Основной метод программы
+	*/
+	void run(void);
+
+	/**
+	Печатает в консоль таблицу (слово + частота)
+	\param elem указатель на таблицу
+	*/
+	void printClassmap(classmap* elem);
+
+	/**
+	Печатает в консоль таблицу составленную после обучения
+	*/
+	void printTrainingMap(void);
+
+private:
+
+	/**
+	Реализует консольный интерфейс пользователя. Ввод необходимой метаинформации для дальнейшего выполнения программы
+	\return true в случае успеха, false иначе
+	*/
+	bool getMethaInfo(void);
+
+	/**
+	Тренирует классификатор на основании данных полученных из обучающей выборки
+	*/
+	void train(void);
+
+	/**
+	Добавляет слова из массива слов в таблицу с тренировочными данными в ячейку с соответствующим именем класса
+	\param data массив слов, которые нужно добавить
+	\param classname имя класса, ключ по которму идет добавление в таблицу
+	*/
+	void updateTrainingMap(word_arr data, wstring classname);
+
+	/**
+	Добавляет слова из массива слов в таблицу слов входного текста
+	\param data массив слов, которые нужно добавить
+	*/
+	void updateExeMap(word_arr data);
+
+	/**
+	Классифицирует входной текст на основании данных из обучающей выборки
+	\param filename имя текстового файла, в котором содержится текст требующий классификации
+	\param mode_ режим вычисления вероятности (вычисляет принадлежность к одному классу или ко всем имеющимся классам)
+	*/
+	void execute(string filename, exe_mode mode_);
+
+	void evaluateProbability(exe_mode mode_, wstring classname);
+
+	/**
+	Подсчет количества слов отнесенных к классу на обучающих данных 
+	\param word слово
+	\param classname имя класса
+	\return частота слова
+	*/
+	int count(wstring word, wstring classname);
+
+	/**
+	Поиск вероятности присвоения класса для конкретного слова
+	\param word слово
+	\param classname имя класса
+	\param class_size количество всех слов отнесенных к классу
+	\param unic_words число уникальных слов в тренировочных данных
+	\return вероятность принадлежности слова классу
+	*/
+	double probability(wstring word, wstring classname, int class_size, int unic_words);
 	
+	/**
+	Вычисление вероятности принадлежности входного текста к конкретному классу
+	\param classname имя класса
+	\param unic_words число уникальных слов в тренировочных данных
+	\return вероятность принадлежности текста классу
+	*/
+	double p(wstring classname, int unic_words);
+
+	/**
+	Вычисление количества слов относящихся к классу
+	\param classname имя класса
+	\return количество всех слов отнесенных к классу
+	*/
+	int classSize(wstring classname);
+
+	/**
+	Подсчет количества уникальных слов в тренировочных данных
+	\return кколичества уникальных слов
+	*/
+	int countUnicWords(void);
 };
 
 
 #pragma once
 
-#endif
+#endif // BAYES_CLASSIFIER_H

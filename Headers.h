@@ -9,10 +9,15 @@
 #include <fstream>
 #include <locale.h>
 
-
 #define DEFAULT_CLASSES_AMOUNT 5
 #define TRAINING_TEXTS_AMOUNT 40
+#define FILE_ROOT "res/"
 #define FILE_EXTENSION ".txt"
-//typedef map<wstring, int> classmap;
+//параметр сглаживания для вычисления вероятностей
+#define ALFA 1
+
+
+typedef std::vector<std::wstring> word_arr;
+typedef std::map<std::wstring, int> classmap;
 #pragma once
 #endif
