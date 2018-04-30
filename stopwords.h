@@ -1,20 +1,50 @@
+/**
+\file
+\brief «аголовочный файл с описанием класса 
+
+ƒанный файл содержит определение класса, используемого
+дл€ удалени€ стоп - слов из вектора, состо€щего из слов исходного текста
+*/
 #pragma once
-#include <vector>
-#include "stdafx.h"
+#ifndef STOP_WORDS_H
+#define STOP_WORDS_H
 #include "Headers.h"
-
-#define DEFAULT_CLASSES_AMOUNT 5
-#define FILE_EXTENSION ".txt"
-
+/**
+\brief »м€ файла, в котором хран€тс€ стоп - слова
+*/
+#define STOP_WORDS_FILE_NAME_RUS "stopwords.txt"
 using namespace std;
-typedef vector<wstring>  word_list;
+/**
+@brief ”далени€ стоп - слов из исходного текста.
+*/
+/**
+\class StopWords
+ ласс дл€ удалени€ стоп - слов из вектора слов исходного текста.<br>
+—одержит одно поле данных, конструктор по умолчанию и три метода.
+*/
 class StopWords
 {
 private:
-	multimap<wchar_t, wstring> mapWords;
+	multimap<wchar_t, wstring> mapWords;///< ’ранит таблицу <первый символ стоп - слова, стоп - слово>.<br>ƒл€ быстрого поиска слова
 public:
+		/**  онструктор по умолчанию. <br>¬нутри происхдит считывание стоп - слов*/
 		StopWords();
+		
+		/**  ћетод дл€ считвани€ стоп - слова из файла в таблицу mapWords
+		\return True, если считывание произошло успешно, иначе False
+		*/
 		bool readFile();
+
+		/** ћетод дл€ поиска слова из исходного текста в таблице стоп - слов mapWords
+		\param[in] word слово из исходного текста
+		\return True, если word €вл€етс€ стоп - словом, иначе False
+		*/
 		bool findWord(wstring word);
-		void removeWord(word_list* words);
+
+		/** ћетод дл€ удалени€ всех стоп - слов, которые встречаютс€ в исходном тексте.<br>
+		¬нутри метода вызываетс€ findWord(wstring word).<br> ≈сли он вернет true, то слово удал€етс€ из вектора всех слов, иначе вектор остаетс€ неизмененным
+		\param[in,out] words - указатель на вектор всех слов из исходного текста
+		*/
+		void removeWord(vector<wstring>* words);
 };
+#endif

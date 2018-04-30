@@ -1,10 +1,17 @@
 ﻿// stopwords.cpp: определяет точку входа для консольного приложения.
+/**
+\file
+\brief Файл с реализацией методов класса
+
+Данный файл содержит определение класса, используемого
+для удаления стоп - слов из вектора, состоящего из слов исходного текста
+*/
 #include "stdafx.h"
 #include"stopwords.h"
-#define STOP_WORDS_FILE_NAME_RUS "stopwords.txt"
 
 StopWords::StopWords()
 {
+	readFile();
 }
 
 bool StopWords::readFile()
@@ -55,9 +62,9 @@ bool StopWords::findWord(wstring word)
 	return false;
 }
 
-void StopWords::removeWord(word_list* words)
+void StopWords::removeWord(vector<wstring>* words)
 {
-	word_list::iterator it; //объявляю итератор it
+	vector<wstring>::iterator it; //объявляю итератор it
 
 	bool checkWord;
 	int ind = 0;

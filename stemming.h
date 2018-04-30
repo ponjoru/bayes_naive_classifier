@@ -1,21 +1,57 @@
+/**
+\file
+\brief Заголовочный файл с описанием класса
+
+Данный файл содержит описание класса, используемого
+для реализации вспомогательных функция для 
+алгоритма стеммера Портера
+*/
 #pragma once
 
-#ifndef __STEM_H__
-#define __STEM_H__
+#ifndef STEM_H
+#define STEM_H
 
 #include <algorithm>
 #include "utilities.h"
 
-///Namespace for stemming classes.
+template<typename T>
+/** Метод определяет, является ли заданное значение одним из двух других заданных значений
+\param[in] value заданное значение
+\param[in] first первое значение для сравнения
+\param[in] second второе значение для сравнения
+\return True, если value является first или second, иначе False
+*/
+inline bool is_either(const T value, const T first, const T second)
+{
+	return (value == first || value == second);
+}
+
 namespace stemming
 {
+	/**
+	\brief Базовый класс для стеммера.
+	\class stem
+
+	\details Класс реализует вспомогательные функции, такие как нахождение областей RV, R1, R2,
+	поиск/удаление окончаний/суффиксов из различных областей слова,
+	для алгоритма стеммера Портера.
+	*/
 	template <typename string_typeT = std::wstring>
 	class stem
 	{
 	public:
+		/** Конструктор<br>
+		Параметры m_r1, m_r2, m_rv инициализируются нулями
+		*/
 		stem() : m_r1(0), m_r2(0), m_rv(0) {}
 	protected:
-		//R1, R2, RV functions
+		
+		/** Метод, в котором происходит выделение R1 области. <br>
+		Область слова после первого сочетания “гласная-согласная”<br>
+		Результат записывается в член класса m_r1.
+		\param[in] text константная ссылка на исходное слово
+		\param[in] vowel_list константный указатель на список гласных букв
+		*/
 		void find_r1(const string_typeT& text,
 			const wchar_t* vowel_list)
 		{
@@ -38,7 +74,12 @@ namespace stemming
 				++m_r1;
 			}
 		}
-
+		/** Метод, в котором происходит выделение R2 области. <br>
+		Область R1 после первого сочетания “гласная-согласная”<br>		
+		Результат записывается в член класса m_r2.
+		\param[in] text константная ссылка на исходное слово
+		\param[in] vowel_list константный указатель на список гласных букв
+		*/
 		void find_r2(const string_typeT& text,
 			const wchar_t* vowel_list)
 		{
@@ -71,7 +112,13 @@ namespace stemming
 				m_r2 = text.length();
 			}
 		}
-
+		/** Метод, в котором происходит выделение RV области. <br>
+		Область слова после первой гласной. Она может быть пустой,
+		если гласные в слове отсутствуют.<br>
+		Результат записывается в член класса m_rv.
+		\param[in] text константная ссылка на исходное слово
+		\param[in] vowel_list константный указатель на список гласных букв
+		*/
 		void find_russian_rv(const string_typeT& text,
 			const wchar_t* vowel_list)
 		{
@@ -87,7 +134,9 @@ namespace stemming
 				m_rv = start + 1;
 			}
 		}
-
+		/** Метод, в котором происходит обновление области rv, r1 и r2
+		\param[in] text константная ссылка на исходное слово
+		*/
 		inline void update_r_sections(const string_typeT& text)
 		{
 			if (get_r1() > text.length())
@@ -103,11 +152,10 @@ namespace stemming
 				m_rv = text.length();
 			}
 		}
-		/**Determines if a character is an apostrophe (includes straight single quotes).
-		@param ch The letter to be analyzed.*/
-		
-		//-------------------------------------------------
-		///RV suffix comparison for one character
+		/** Метод для сравнения суффикса в RV - области для одного символа
+		\return true, если суффикс входит в состав слова<br>
+		false, если слово не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool is_suffix_in_rv(const string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U)
 		{
@@ -118,7 +166,10 @@ namespace stemming
 			return (is_either<wchar_t>(text[text.length() - 1], suffix1L, suffix1U) &&
 				(get_rv() <= text.length() - 1));
 		}
-		///RV suffix comparison for two characters
+		/** Метод для сравнения суффикса в RV - области для двух символов
+		\return true, если суффикс входит в состав слова<br>
+		false, если слово не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool is_suffix_in_rv(const string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U)
@@ -131,7 +182,10 @@ namespace stemming
 				is_either<wchar_t>(text[text.length() - 1], suffix2L, suffix2U)) &&
 				(get_rv() <= text.length() - 2));
 		}
-		///RV suffix comparison for three characters
+		/** Метод для сравнения суффикса в RV - области для трех символов
+		\return true, если суффикс входит в состав слова<br>
+		false, если слово не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool is_suffix_in_rv(const string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -146,7 +200,10 @@ namespace stemming
 				is_either<wchar_t>(text[text.length() - 1], suffix3L, suffix3U)) &&
 				(get_rv() <= text.length() - 3));
 		}
-		///RV suffix comparison for four characters
+		/** Метод для сравнения суффикса в RV - области для четырех символов
+		\return true, если суффикс входит в состав слова<br>
+		false, если слово не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool is_suffix_in_rv(const string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -163,7 +220,10 @@ namespace stemming
 				is_either<wchar_t>(text[text.length() - 1], suffix4L, suffix4U)) &&
 				(get_rv() <= text.length() - 4));
 		}
-		///RV suffix comparison for five characters
+		/** Метод для сравнения суффикса в RV - области для пяти символов
+		\return true, если суффикс входит в состав слова<br>
+		false, если слово не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool is_suffix_in_rv(const string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -182,7 +242,10 @@ namespace stemming
 				is_either<wchar_t>(text[text.length() - 1], suffix5L, suffix5U)) &&
 				(get_rv() <= text.length() - 5));
 		}
-		///RV suffix comparison for six characters
+		/** Метод для сравнения суффикса в RV - области для шести символов
+		\return true, если суффикс входит в состав слова<br>
+		false, если слово не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool is_suffix_in_rv(const string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -203,7 +266,10 @@ namespace stemming
 				is_either<wchar_t>(text[text.length() - 1], suffix6L, suffix6U)) &&
 				(get_rv() <= text.length() - 6));
 		}
-		///RV suffix comparison for seven characters
+		/** Метод для сравнения суффикса в RV - области для семи символов
+		\return true, если суффикс входит в состав слова<br>
+		false, если слово не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool is_suffix_in_rv(const string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -226,7 +292,11 @@ namespace stemming
 				is_either<wchar_t>(text[text.length() - 1], suffix7L, suffix7U)) &&
 				(get_rv() <= text.length() - 7));
 		}
-		///RV suffix comparison for eight characters
+
+		/** Метод для сравнения суффикса в RV - области для восьми символов
+		\return true, если суффикс входит в состав слова<br>
+		false, если слово не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool is_suffix_in_rv(const string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -252,8 +322,10 @@ namespace stemming
 				(get_rv() <= text.length() - 8));
 		}
 
-		
-		//R2 deletion for one character suffix
+		/** Метод для удаления суффикса из R2 - области для одного символа
+		\return true, если суффикс входит в состав области R2 и был удален<br>
+		false, если область R2 не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_r2(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const bool success_on_find = true)
@@ -277,7 +349,10 @@ namespace stemming
 				return false;
 			}
 		}
-		//R2 deletion for two character suffix
+		/** Метод для удаления суффикса из R2 - области для двух символов
+		\return true, если суффикс входит в состав области R2 и был удален<br>
+		false, если область R2 не содержит сфуффикс или количество символов в слове < 1
+		*/		
 		inline bool delete_if_is_in_r2(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -303,7 +378,10 @@ namespace stemming
 				return false;
 			}
 		}
-		//R2 deletion for three character suffix
+		/** Метод для удаления суффикса из R2 - области для трех символов
+		\return true, если суффикс входит в состав области R2 и был удален<br>
+		false, если область R2 не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_r2(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -331,7 +409,11 @@ namespace stemming
 				return false;
 			}
 		}
-		//R2 deletion for four character suffix
+
+		/** Метод для удаления суффикса из R2 - области для четырех символов
+		\return true, если суффикс входит в состав области R2 и был удален<br>
+		false, если область R2 не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_r2(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -361,7 +443,11 @@ namespace stemming
 				return false;
 			}
 		}
-		///R2 deletion for five character suffix
+
+		/** Метод для удаления суффикса из R2 - области для пяти символов
+		\return true, если суффикс входит в состав области R2 и был удален<br>
+		false, если область R2 не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_r2(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -393,7 +479,11 @@ namespace stemming
 				return false;
 			}
 		}
-		///R2 deletion for six character suffix
+
+		/** Метод для удаления суффикса из R2 - области для шести символов
+		\return true, если суффикс входит в состав области R2 и был удален<br>
+		false, если область R2 не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_r2(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -427,7 +517,11 @@ namespace stemming
 				return false;
 			}
 		}
-		///R2 deletion for seven character suffix
+
+		/** Метод для удаления суффикса из R2 - области для семи символов
+		\return true, если суффикс входит в состав области R2 и был удален<br>
+		false, если область R2 не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_r2(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -463,7 +557,11 @@ namespace stemming
 				return false;
 			}
 		}
-		///R2 deletion for eight character suffix
+
+		/** Метод для удаления суффикса из R2 - области для восьми символов
+		\return true, если суффикс входит в состав области R2 и был удален<br>
+		false, если область R2 не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_r2(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -502,8 +600,10 @@ namespace stemming
 			}
 		}
 
-		//RV deletion functions
-		//RV deletion for one character suffix
+		/** Метод для удаления суффикса из RV - области для одного символа
+		\return true, если суффикс входит в состав области RV и был удален<br>
+		false, если область RV не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_rv(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const bool success_on_find = true)
@@ -527,7 +627,11 @@ namespace stemming
 				return false;
 			}
 		}
-		//RV deletion for two character suffix
+
+		/** Метод для удаления суффикса из RV - области для двух символов
+		\return true, если суффикс входит в состав области RV и был удален<br>
+		false, если область RV не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_rv(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -553,7 +657,11 @@ namespace stemming
 				return false;
 			}
 		}
-		//RV deletion for three character suffix
+
+		/** Метод для удаления суффикса из RV - области для трех символов
+		\return true, если суффикс входит в состав области RV и был удален<br>
+		false, если область RV не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_rv(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -581,7 +689,11 @@ namespace stemming
 				return false;
 			}
 		}
-		//RV deletion for four character suffix
+
+		/** Метод для удаления суффикса из RV - области для четырех символов
+		\return true, если суффикс входит в состав области RV и был удален<br>
+		false, если область RV не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_rv(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -611,7 +723,11 @@ namespace stemming
 				return false;
 			}
 		}
-		//RV deletion for five character suffix
+
+		/** Метод для удаления суффикса из RV - области для пяти символов
+		\return true, если суффикс входит в состав области RV и был удален<br>
+		false, если область RV не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_rv(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -643,7 +759,11 @@ namespace stemming
 				return false;
 			}
 		}
-		//RV deletion for six character suffix
+
+		/** Метод для удаления суффикса из RV - области для шести символов
+		\return true, если суффикс входит в состав области RV и был удален<br>
+		false, если область RV не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_rv(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -677,7 +797,11 @@ namespace stemming
 				return false;
 			}
 		}
-		//RV deletion for seven character suffix
+
+		/** Метод для удаления суффикса из RV - области для семи символов
+		\return true, если суффикс входит в состав области RV и был удален<br>
+		false, если область RV не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_rv(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -713,7 +837,11 @@ namespace stemming
 				return false;
 			}
 		}
-		//RV deletion for eight character suffix
+
+		/** Метод для удаления суффикса из RV - области для восьми символов
+		\return true, если суффикс входит в состав области RV и был удален<br>
+		false, если область RV не содержит сфуффикс или количество символов в слове < 1
+		*/
 		inline bool delete_if_is_in_rv(string_typeT& text,
 			const wchar_t suffix1L, const wchar_t suffix1U,
 			const wchar_t suffix2L, const wchar_t suffix2U,
@@ -753,62 +881,42 @@ namespace stemming
 		}
 
 		//----------------------------------------------------------
-	
+		/** Метод для получения количества символов области R1
+		\return m_r1
+		*/
 		inline size_t get_r1() const
 		{
 			return m_r1;
 		}
-		inline void set_r1(const size_t val)
-		{
-			m_r1 = val;
-		}
 
+		/** Метод для получения количества символов области R2
+		\return m_r2
+		*/
 		inline size_t get_r2() const
 		{
 			return m_r2;
 		}
-		inline void set_r2(const size_t val)
-		{
-			m_r2 = val;
-		}
-
+		
+		/** Метод для получения количества символов области RV
+		\return m_rv
+		*/
 		inline size_t get_rv() const
 		{
 			return m_rv;
 		}
-		inline void set_rv(const size_t val)
-		{
-			m_rv = val;
-		}
-
+	
+		/** Метод, в котором происходит сброс размеров для всех областей
+		*/
 		void reset_r_values()
 		{
 			m_r1 = m_r2 = m_rv = 0;
 		}
 	private:
-		size_t m_r1;
-		size_t m_r2;
+		size_t m_r1;///< Размер области r1 в символах 
+		size_t m_r2;///< Размер области r2 в символах
 		//only used for romance/russian languages
-		size_t m_rv;
-	};
-
-	//------------------------------------------------------
-	/*A non-operational stemmer that is used in place of regular stemmers when
-	you don't want the system to actually stem anything.*/
-	template <typename string_typeT = std::wstring>
-	class no_op_stem
-	{
-	public:
-		///No-op stemming of declared string type
-		inline void operator()(const string_typeT&) const
-		{}
-		///No-op stemming of flexible string type
-		template <typename T>
-		inline void operator()(const T&) const
-		{}
+		size_t m_rv;///<Размер области rv в символах
 	};
 }
 
-/** @}*/
-
-#endif //__STEM_H__
+#endif 
