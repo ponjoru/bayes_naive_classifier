@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.14"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SlowBC: Исходный файл D:/Studies/Software Engineering/SlowBC/SlowBC/BayesClassifier.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SlowBC
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.14 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_37f036563240eea133b305436b5cb008.html">Studies</a></li><li class="navelem"><a class="el" href="dir_6375f243ad822b4d5ffa40000941ab5a.html">Software Engineering</a></li><li class="navelem"><a class="el" href="dir_11138638c953ef6c419d05f8c6fbcdbf.html">SlowBC</a></li><li class="navelem"><a class="el" href="dir_1aa99c65c7c38fe8eb5db21b617db20e.html">SlowBC</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">BayesClassifier.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_bayes_classifier_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#ifndef BAYES_CLASSIFIER_H</span></div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define BAYES_CLASSIFIER_H</span></div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_headers_8h.html">Headers.h</a>&quot;</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_text_8h.html">Text.h</a>&quot;</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_data_process_8h.html">DataProcess.h</a>&quot;</span></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacestd.html">std</a>;</div><div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="_bayes_classifier_8h.html#af355f75a6adacb7a81e29fcd10bade6c">   15</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="_bayes_classifier_8h.html#af355f75a6adacb7a81e29fcd10bade6c">exe_mode</a> </div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div><div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="_bayes_classifier_8h.html#af355f75a6adacb7a81e29fcd10bade6ca3388f7110f6f25a54e215eb75d5d7516">   17</a></span>&#160;    <a class="code" href="_bayes_classifier_8h.html#af355f75a6adacb7a81e29fcd10bade6ca3388f7110f6f25a54e215eb75d5d7516">SINGLE</a>,</div><div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="_bayes_classifier_8h.html#af355f75a6adacb7a81e29fcd10bade6ca6bc295e29b5149df1ca1d0bc868d3735">   18</a></span>&#160;    <a class="code" href="_bayes_classifier_8h.html#af355f75a6adacb7a81e29fcd10bade6ca6bc295e29b5149df1ca1d0bc868d3735">EXTENDED</a>,</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;};</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div><div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_bayes_classifier.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_bayes_classifier.html">BayesClassifier</a></div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">private</span>:</div><div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_bayes_classifier.html#a9214df4079928d007e40ac76217286f5">   28</a></span>&#160;    map&lt;wstring, classmap&gt; <a class="code" href="class_bayes_classifier.html#a9214df4079928d007e40ac76217286f5">training_map</a>;    </div><div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_bayes_classifier.html#a3faccb9e79d95d8d9c89df45d7d2bd9c">   29</a></span>&#160;    <a class="code" href="_headers_8h.html#ac733f6271659f843f3f244d159cd9494">classmap</a> <a class="code" href="class_bayes_classifier.html#a3faccb9e79d95d8d9c89df45d7d2bd9c">exe_map</a>; </div><div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_bayes_classifier.html#abe9cc7a18fe2c480ff273c079b50f801">   30</a></span>&#160;    map&lt;wstring, int&gt; <a class="code" href="class_bayes_classifier.html#abe9cc7a18fe2c480ff273c079b50f801">class_metha</a>;  </div><div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_bayes_classifier.html#ab878c05d5c4ec5f9a588be88a23a5a98">   31</a></span>&#160;    <a class="code" href="class_data_process.html">DataProcess</a> <a class="code" href="class_bayes_classifier.html#ab878c05d5c4ec5f9a588be88a23a5a98">data_processor</a>; </div><div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_bayes_classifier.html#aa30c715e9938fb8f94864f0af5473ba0">   32</a></span>&#160;    vector&lt;double&gt; <a class="code" href="class_bayes_classifier.html#aa30c715e9938fb8f94864f0af5473ba0">results</a>; </div><div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_bayes_classifier.html#ac99c50744d0ab90a0e69d3e6a8a19cac">   33</a></span>&#160;    <span class="keywordtype">int</span> texts_amount = 0; </div><div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_bayes_classifier.html#a6bd4a51c526114da0957461917eb30f5">   34</a></span>&#160;    <a class="code" href="_bayes_classifier_8h.html#af355f75a6adacb7a81e29fcd10bade6c">exe_mode</a> <a class="code" href="class_bayes_classifier.html#a6bd4a51c526114da0957461917eb30f5">mode_</a>; </div><div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_bayes_classifier.html#a4faeaf2b661cc3d0f530f768885717de">   35</a></span>&#160;    wstring <a class="code" href="class_bayes_classifier.html#a4faeaf2b661cc3d0f530f768885717de">classname_to_check</a>; </div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">public</span>:</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> run(<span class="keywordtype">void</span>);</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> printClassmap(<a class="code" href="_headers_8h.html#ac733f6271659f843f3f244d159cd9494">classmap</a>* elem);</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> printTrainingMap(<span class="keywordtype">void</span>);</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    </div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    vector&lt;double&gt; getResults();</div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">private</span>:</div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">bool</span> setMethaInfo(<span class="keywordtype">void</span>);</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> train(<span class="keywordtype">void</span>);</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> updateTrainingMap(<a class="code" href="_headers_8h.html#a4a344217820275d2870fceb5891334c6">word_arr</a> data, wstring classname);</div><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> updateExeMap(<a class="code" href="_headers_8h.html#a4a344217820275d2870fceb5891334c6">word_arr</a> data);</div><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">void</span> execute(<span class="keywordtype">string</span> filename);</div><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> evaluateProbability();</div><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">int</span> count(wstring word, wstring classname);</div><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div><div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">double</span> probability(wstring word, wstring classname, <span class="keywordtype">int</span> class_size, <span class="keywordtype">int</span> unic_words);</div><div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    </div><div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordtype">double</span> p(wstring classname, <span class="keywordtype">int</span> unic_words);</div><div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div><div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">int</span> classSize(wstring classname);</div><div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div><div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">int</span> countUnicWords(<span class="keywordtype">void</span>);</div><div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;};</div><div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div><div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div><div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div><div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#endif // BAYES_CLASSIFIER_H</span></div><div class="ttc" id="_headers_8h_html"><div class="ttname"><a href="_headers_8h.html">Headers.h</a></div></div>
+<div class="ttc" id="class_bayes_classifier_html_a6bd4a51c526114da0957461917eb30f5"><div class="ttname"><a href="class_bayes_classifier.html#a6bd4a51c526114da0957461917eb30f5">BayesClassifier::mode_</a></div><div class="ttdeci">exe_mode mode_</div><div class="ttdoc">Режим выполнения программы </div><div class="ttdef"><b>Definition:</b> BayesClassifier.h:34</div></div>
+<div class="ttc" id="_bayes_classifier_8h_html_af355f75a6adacb7a81e29fcd10bade6c"><div class="ttname"><a href="_bayes_classifier_8h.html#af355f75a6adacb7a81e29fcd10bade6c">exe_mode</a></div><div class="ttdeci">exe_mode</div><div class="ttdef"><b>Definition:</b> BayesClassifier.h:15</div></div>
+<div class="ttc" id="class_bayes_classifier_html_ab878c05d5c4ec5f9a588be88a23a5a98"><div class="ttname"><a href="class_bayes_classifier.html#ab878c05d5c4ec5f9a588be88a23a5a98">BayesClassifier::data_processor</a></div><div class="ttdeci">DataProcess data_processor</div><div class="ttdoc">Класс с методами для обработки текста (стеммер + удаление стоп слов) </div><div class="ttdef"><b>Definition:</b> BayesClassifier.h:31</div></div>
+<div class="ttc" id="_bayes_classifier_8h_html_af355f75a6adacb7a81e29fcd10bade6ca3388f7110f6f25a54e215eb75d5d7516"><div class="ttname"><a href="_bayes_classifier_8h.html#af355f75a6adacb7a81e29fcd10bade6ca3388f7110f6f25a54e215eb75d5d7516">SINGLE</a></div><div class="ttdef"><b>Definition:</b> BayesClassifier.h:17</div></div>
+<div class="ttc" id="_data_process_8h_html"><div class="ttname"><a href="_data_process_8h.html">DataProcess.h</a></div><div class="ttdoc">Заголовочный файл с описанием класса </div></div>
+<div class="ttc" id="_headers_8h_html_ac733f6271659f843f3f244d159cd9494"><div class="ttname"><a href="_headers_8h.html#ac733f6271659f843f3f244d159cd9494">classmap</a></div><div class="ttdeci">std::map&lt; std::wstring, int &gt; classmap</div><div class="ttdef"><b>Definition:</b> Headers.h:21</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div></div>
+<div class="ttc" id="_bayes_classifier_8h_html_af355f75a6adacb7a81e29fcd10bade6ca6bc295e29b5149df1ca1d0bc868d3735"><div class="ttname"><a href="_bayes_classifier_8h.html#af355f75a6adacb7a81e29fcd10bade6ca6bc295e29b5149df1ca1d0bc868d3735">EXTENDED</a></div><div class="ttdef"><b>Definition:</b> BayesClassifier.h:18</div></div>
+<div class="ttc" id="class_bayes_classifier_html_aa30c715e9938fb8f94864f0af5473ba0"><div class="ttname"><a href="class_bayes_classifier.html#aa30c715e9938fb8f94864f0af5473ba0">BayesClassifier::results</a></div><div class="ttdeci">vector&lt; double &gt; results</div><div class="ttdoc">Список результатов </div><div class="ttdef"><b>Definition:</b> BayesClassifier.h:32</div></div>
+<div class="ttc" id="class_bayes_classifier_html"><div class="ttname"><a href="class_bayes_classifier.html">BayesClassifier</a></div><div class="ttdoc">Класс Наивная Байесовская Классификация Базовый класс программы, реализующий вычисление вероятности п...</div><div class="ttdef"><b>Definition:</b> BayesClassifier.h:25</div></div>
+<div class="ttc" id="class_bayes_classifier_html_a9214df4079928d007e40ac76217286f5"><div class="ttname"><a href="class_bayes_classifier.html#a9214df4079928d007e40ac76217286f5">BayesClassifier::training_map</a></div><div class="ttdeci">map&lt; wstring, classmap &gt; training_map</div><div class="ttdoc">Таблица содержащая имена классов, список слов соответствующих каждому классу и частоту встретившихся ...</div><div class="ttdef"><b>Definition:</b> BayesClassifier.h:28</div></div>
+<div class="ttc" id="class_data_process_html"><div class="ttname"><a href="class_data_process.html">DataProcess</a></div><div class="ttdoc">Предобработка слов исходного текста. </div><div class="ttdef"><b>Definition:</b> DataProcess.h:26</div></div>
+<div class="ttc" id="_headers_8h_html_a4a344217820275d2870fceb5891334c6"><div class="ttname"><a href="_headers_8h.html#a4a344217820275d2870fceb5891334c6">word_arr</a></div><div class="ttdeci">std::vector&lt; std::wstring &gt; word_arr</div><div class="ttdef"><b>Definition:</b> Headers.h:20</div></div>
+<div class="ttc" id="_text_8h_html"><div class="ttname"><a href="_text_8h.html">Text.h</a></div></div>
+<div class="ttc" id="class_bayes_classifier_html_abe9cc7a18fe2c480ff273c079b50f801"><div class="ttname"><a href="class_bayes_classifier.html#abe9cc7a18fe2c480ff273c079b50f801">BayesClassifier::class_metha</a></div><div class="ttdeci">map&lt; wstring, int &gt; class_metha</div><div class="ttdoc">Таблица содержащая имя класса и число текстов обучающей выборки относящихся к этому классу ...</div><div class="ttdef"><b>Definition:</b> BayesClassifier.h:30</div></div>
+<div class="ttc" id="class_bayes_classifier_html_a4faeaf2b661cc3d0f530f768885717de"><div class="ttname"><a href="class_bayes_classifier.html#a4faeaf2b661cc3d0f530f768885717de">BayesClassifier::classname_to_check</a></div><div class="ttdeci">wstring classname_to_check</div><div class="ttdoc">Имя класса, принадлежность к которому хотим проверять </div><div class="ttdef"><b>Definition:</b> BayesClassifier.h:35</div></div>
+<div class="ttc" id="class_bayes_classifier_html_a3faccb9e79d95d8d9c89df45d7d2bd9c"><div class="ttname"><a href="class_bayes_classifier.html#a3faccb9e79d95d8d9c89df45d7d2bd9c">BayesClassifier::exe_map</a></div><div class="ttdeci">classmap exe_map</div><div class="ttdoc">Таблица содержащая список обработанных слов с их частотой, встретившихся в входном тексте ...</div><div class="ttdef"><b>Definition:</b> BayesClassifier.h:29</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.14
+</small></address>
+</body>
+</html>

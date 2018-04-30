@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.14"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SlowBC: Класс StopWords</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">SlowBC
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.14 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pri-attribs">Закрытые данные</a> &#124;
+<a href="class_stop_words-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle">
+<div class="title">Класс StopWords</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Удаления стоп - слов из исходного текста.  
+ <a href="class_stop_words.html#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="stopwords_8h_source.html">stopwords.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a14fb35f6b2f88be4cf255a95ec12bcc7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stop_words.html#a14fb35f6b2f88be4cf255a95ec12bcc7">StopWords</a> ()</td></tr>
+<tr class="separator:a14fb35f6b2f88be4cf255a95ec12bcc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7ad1d5a6a2167e58f4278f634575cf6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stop_words.html#ac7ad1d5a6a2167e58f4278f634575cf6">readFile</a> ()</td></tr>
+<tr class="separator:ac7ad1d5a6a2167e58f4278f634575cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b7c463805138efa94e0086f73462964"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stop_words.html#a9b7c463805138efa94e0086f73462964">findWord</a> (wstring word)</td></tr>
+<tr class="separator:a9b7c463805138efa94e0086f73462964"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a627e968ac07220406e33b8f7b3777e0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stop_words.html#a627e968ac07220406e33b8f7b3777e0f">removeWord</a> (vector&lt; wstring &gt; *words)</td></tr>
+<tr class="separator:a627e968ac07220406e33b8f7b3777e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Закрытые данные</h2></td></tr>
+<tr class="memitem:a47797eb886e7af6e748384f34d09a918"><td class="memItemLeft" align="right" valign="top">multimap&lt; wchar_t, wstring &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stop_words.html#a47797eb886e7af6e748384f34d09a918">mapWords</a></td></tr>
+<tr class="memdesc:a47797eb886e7af6e748384f34d09a918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Хранит таблицу &lt;первый символ стоп - слова, стоп - слово&gt;.<br />
+Для быстрого поиска слова  <a href="#a47797eb886e7af6e748384f34d09a918">Подробнее...</a><br /></td></tr>
+<tr class="separator:a47797eb886e7af6e748384f34d09a918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Удаления стоп - слов из исходного текста. </p>
+<p>Класс для удаления стоп - слов из вектора слов исходного текста.<br />
+ Содержит одно поле данных, конструктор по умолчанию и три метода. </p>
+</div><h2 class="groupheader">Конструктор(ы)</h2>
+<a id="a14fb35f6b2f88be4cf255a95ec12bcc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14fb35f6b2f88be4cf255a95ec12bcc7">&#9670;&nbsp;</a></span>StopWords()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">StopWords::StopWords </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Конструктор по умолчанию. <br />
+Внутри происхдит считывание стоп - слов </p>
+
+</div>
+</div>
+<h2 class="groupheader">Методы</h2>
+<a id="a9b7c463805138efa94e0086f73462964"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b7c463805138efa94e0086f73462964">&#9670;&nbsp;</a></span>findWord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool StopWords::findWord </td>
+          <td>(</td>
+          <td class="paramtype">wstring&#160;</td>
+          <td class="paramname"><em>word</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Метод для поиска слова из исходного текста в таблице стоп - слов mapWords </p><dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">word</td><td>слово из исходного текста </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>True, если word является стоп - словом, иначе False </dd></dl>
+
+</div>
+</div>
+<a id="ac7ad1d5a6a2167e58f4278f634575cf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7ad1d5a6a2167e58f4278f634575cf6">&#9670;&nbsp;</a></span>readFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool StopWords::readFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Метод для считвания стоп - слова из файла в таблицу mapWords </p><dl class="section return"><dt>Возвращает</dt><dd>True, если считывание произошло успешно, иначе False </dd></dl>
+
+</div>
+</div>
+<a id="a627e968ac07220406e33b8f7b3777e0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a627e968ac07220406e33b8f7b3777e0f">&#9670;&nbsp;</a></span>removeWord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void StopWords::removeWord </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; wstring &gt; *&#160;</td>
+          <td class="paramname"><em>words</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Метод для удаления всех стоп - слов, которые встречаются в исходном тексте.<br />
+ Внутри метода вызывается <a class="el" href="class_stop_words.html#a9b7c463805138efa94e0086f73462964">findWord(wstring word)</a>.<br />
+ Если он вернет true, то слово удаляется из вектора всех слов, иначе вектор остается неизмененным </p><dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">words</td><td>- указатель на вектор всех слов из исходного текста </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Данные класса</h2>
+<a id="a47797eb886e7af6e748384f34d09a918"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47797eb886e7af6e748384f34d09a918">&#9670;&nbsp;</a></span>mapWords</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">multimap&lt;wchar_t, wstring&gt; StopWords::mapWords</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Хранит таблицу &lt;первый символ стоп - слова, стоп - слово&gt;.<br />
+Для быстрого поиска слова </p>
+
+</div>
+</div>
+<hr/>Объявления и описания членов классов находятся в файлах:<ul>
+<li>D:/Studies/Software Engineering/SlowBC/SlowBC/<a class="el" href="stopwords_8h_source.html">stopwords.h</a></li>
+<li>D:/Studies/Software Engineering/SlowBC/SlowBC/<a class="el" href="stopwords_8cpp.html">stopwords.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.14
+</small></address>
+</body>
+</html>
