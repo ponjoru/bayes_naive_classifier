@@ -22,11 +22,12 @@ bool Text::loadData(string filename, mode mode_)
 void Text::updateData(wstring line) 
 {
 	wchar_t *ptr = 0;       //Указатель
-	ptr = wcstok(&line[0], separators); //Выдираем первое слово из строки
+	wchar_t *rowstate;
+	ptr = wcstok_s(&line[0], separators, &rowstate); //Выделяем первое слово из строки
 	while (ptr) 
 	{               
 		data.push_back(wstring(ptr));
-		ptr = wcstok(0, separators);   //Подбираем слово
+		ptr = wcstok_s(0, separators, &rowstate);   //Подбираем слово
 	}
 }
 wstring Text::getClassName()

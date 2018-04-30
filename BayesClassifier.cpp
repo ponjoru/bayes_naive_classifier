@@ -4,7 +4,8 @@
 void BayesClassifier::run(void)
 {
 	train();
-	execute("test.txt", SINGLE);
+	setMethaInfo();
+	execute("test.txt");
 }
 void BayesClassifier::train(void)
 {
@@ -27,9 +28,29 @@ void BayesClassifier::train(void)
 		data_processor.processingWords(&data);
 		updateTrainingMap(data, classname);
 		class_metha[classname]++;
-		printTrainingMap();
+		
 	}
+	printTrainingMap();
 	cout << "Info:: " << texts_amount << " files of " << TRAINING_TEXTS_AMOUNT << " were loaded" << endl;
+}
+void BayesClassifier::execute(string filename)
+{
+	Text txt;
+	if (!txt.loadData(filename, EXECUTION_MODE))
+	{
+		cout << "Error:: File '" << filename << "' with data to analyze not found" << endl;
+	}
+	word_arr data = txt.getData();
+	wstring classname = txt.getClassName();
+	data_processor.processingWords(&data);
+	updateExeMap(data);
+	//printClassmap(&exe_map);
+	/*int k = count(L"пес", L"собака");
+	int m = classSize(L"собака");
+	int n = countUnicWords();*/
+	
+
+	evaluateProbability();
 }
 
 void BayesClassifier::printClassmap(classmap* elem)
@@ -45,11 +66,14 @@ void BayesClassifier::printTrainingMap(void)
 	wcout << "--------------------begin---------------------------" << endl;
 	for (auto it = training_map.begin(); it != training_map.end()--; ++it)
 	{
-		wcout << it->first << endl << "------------------------------------------------" << endl;
+		wcout << "----------------------------------------------------" << endl;
+		wcout << it->first << endl;
+		wcout << "----------------------------------------------------" << endl;
 		printClassmap(&(it->second));
 	}
 	wcout << "---------------------end----------------------------" << endl;
 }
+
 void BayesClassifier::updateTrainingMap(word_arr data, wstring classname)
 {
 	map<wstring,classmap>::iterator map_it = training_map.find(classname);
@@ -60,68 +84,47 @@ void BayesClassifier::updateTrainingMap(word_arr data, wstring classname)
 	else
 		training_map.emplace(classname, tmp_map);
 	
-	for (int i = 0;i < data.size();i++)
-	{
-		
-		/*if (tmp_map.find(data[i]) == tmp_map.end())
-		{
-			tmp_map.emplace(data[i], 1);
-		}
-		else*/
-			training_map[classname][data[i]]++; 
-			// classmap map = training_map[classname];
-			// map[data[i]]++;
-			//printTrainingMap();
-	}
+	for (unsigned int i = 0;i < data.size();i++)
+		training_map[classname][data[i]]++; 
 }
 void BayesClassifier::updateExeMap(word_arr data)
 {
-	for (int i = 0;i < data.size();i++)
-	{
+	for (unsigned int i = 0;i < data.size();i++)
 		exe_map[data[i]]++;
-	}
 }
-void BayesClassifier::execute(string filename, exe_mode mode_)
+
+vector<double> BayesClassifier::getResults()
 {
-	Text txt;
-	if (!txt.loadData(filename, EXECUTION_MODE))
-	{
-		cout << "Error:: File '" << filename << "' with data to analyze not found" << endl;
-	}
-	word_arr data = txt.getData();
-	wstring classname = txt.getClassName();
-	data_processor.processingWords(&data);
-	updateExeMap(data);
-	//printClassmap(&exe_map);
-	int k = count(L"пес", L"собака");
-	int m = classSize(L"собака");
-	int n = countUnicWords();
+	return results;
+}
+bool BayesClassifier::setMethaInfo()
+{
 	
-
-	evaluateProbability(mode_, NULL);
-}
-
-bool BayesClassifier::getMethaInfo()
-{
-	wcout << L"¬ыберите режим выполнени€ (1 или 2)" << endl;
-	wcout << L"1.¬еро€тность принадлежности всем классам\n" << endl;
-	wcout << L"2.¬еро€тность принадлежности одному конкретному классу\n" << endl;
+	wcout << endl << L"1.¬еро€тность принадлежности всем классам" << endl;
+	wcout << L"2.¬еро€тность принадлежности одному конкретному классу" << endl;
+	wcout << L"¬ыберите режим выполнени€ (1 или 2):" << endl;
 	char command;
+	
 	cin >> command;
 	switch (command)
 	{
 	case '1':
 	{
 		mode_ = EXTENDED;
+		classname_to_check = L"";
 		break;
 	}
 	case '2':
 	{
 		mode_ = SINGLE;
+		wcout << L"-------------------------------------------------------------------------------------------------------------" << endl;
 		wcout << L"¬ыберете класс из перечн€ и введите им€ класса, к которому вы хотите проверить принадлежность текущего текста" << endl;
 		for (auto it : training_map)
-			wcout << it.first << endl;
-		wcin >> classname;
+			wcout << L"* " <<it.first << endl;
+		wcin.imbue(locale("rus_rus.866"));
+		wcin >> classname_to_check;
+		if (training_map.find(classname_to_check) == training_map.end())
+			return false;
 		break;
 	}
 	default:
@@ -129,22 +132,22 @@ bool BayesClassifier::getMethaInfo()
 	}
 	return true;
 }
-// можно вынести в отдельный класс, но неудобно будет получить доступ к мапам
-void BayesClassifier::evaluateProbability(exe_mode mode_, wstring classname)
+
+void BayesClassifier::evaluateProbability()
 {
 	int unic_words_amount = countUnicWords();
 	switch (mode_)
 	{
 		case SINGLE:
 		{
-			p(classname, unic_words_amount);
+			results.push_back(p(classname_to_check, unic_words_amount));
 			break;
 		}
 		case EXTENDED:
 		{
-			for (int i = 0; i < DEFAULT_CLASSES_AMOUNT;i++)
+			for (auto it : training_map)
 			{
-				p(classname, unic_words_amount);
+				results.push_back(p(it.first, unic_words_amount));
 			}
 			break;
 		}
@@ -155,22 +158,19 @@ void BayesClassifier::evaluateProbability(exe_mode mode_, wstring classname)
 		}
 	}
 }
-
 double BayesClassifier::p(wstring classname, int unic_words)
 {
 	double result = 1;
 	int class_size = classSize(classname);
 	for (auto it : exe_map)
 		result *= probability(it.first, classname, class_size, unic_words);
-	result *= (class_metha[classname] / texts_amount);
+	result *= (class_metha[classname] / double(texts_amount));
 	return result;
 }
-
 double BayesClassifier::probability(wstring word, wstring classname, int class_size, int unic_words)
 {
-	return (count(word, classname) + ALFA) / (class_size + ALFA * unic_words);
+	return (count(word, classname) + ALFA) / double(class_size + ALFA * unic_words);
 }
-
 int BayesClassifier::count(wstring word, wstring classname)
 {
 	auto it = training_map.find(classname);
@@ -183,7 +183,6 @@ int BayesClassifier::count(wstring word, wstring classname)
 	else
 		return tmp[word];
 }
-
 int BayesClassifier::classSize(wstring classname)
 {
 	auto it = training_map.find(classname);
@@ -192,16 +191,15 @@ int BayesClassifier::classSize(wstring classname)
 		return -1;
 	else
 	{
-		for (auto it : training_map[classname])
-			result += it.second;
+		for (auto jt : training_map[classname])
+			result += jt.second;
 	}
 	return result;
 }
-
 int BayesClassifier::countUnicWords(void)
 {
 	vector<wstring> tmp;
-	int i = 0;
+	//int i = 0;
 	for (auto item : training_map)
 	{
 		for (auto wordmap : item.second)
