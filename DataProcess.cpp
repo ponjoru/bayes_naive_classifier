@@ -1,20 +1,14 @@
-#include "stdafx.h"
+/**
+\file
+\brief ‘айл с реализацией методов класса
 
+ƒанный файл содержит определение класса, используемого
+дл€ предобработки исходного текста. <br>
+*/
+#include "stdafx.h"
 #include "DataProcess.h"
 
 DataProcess::DataProcess()
-{
-	stopWords.readFile();
-}
-
-
-vector<wstring> DataProcess::GetData(void)
-{
-	return this->data;
-}
-
-
-void DataProcess::Tokeniaztion(wstring line)
 {
 }
 
@@ -22,9 +16,9 @@ void DataProcess::processingWords(vector <wstring>* words)
 {
 	// удал€ем стоп слова
 	stopWords.removeWord(words);
-
+	uint16_t i = 0;
 	// приводим все слова к нормальной форме
-	for (int i = 0; i < words->size(); i++)
+	for (i = 0; i < words->size(); i++)
 		stem(words->at(i));
 
 }
