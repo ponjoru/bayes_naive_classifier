@@ -32,7 +32,7 @@ void BayesClassifier::run(void)
 		printClassmap(&class_metha, wcout);
 		wcout << L"-----------------------------------------" << endl;
 	}
-	execute(FILE_TO_CHECK);
+	execute(file_to_check);
 }
 void BayesClassifier::train(void)
 {
@@ -228,6 +228,8 @@ bool BayesClassifier::setMethaInfo()
 		return false;
 	}
 	}
+	wcout << L"Введите имя файла, в котором содержится текст, который вы хотите классифицировать - ";
+	wcin >> file_to_check;
 	wcout << endl << L"1.Вероятность принадлежности всем классам" << endl;
 	wcout << L"2.Вероятность принадлежности одному конкретному классу" << endl;
 	wcout << L"Выберите режим выполнения (1 или 2): - ";
