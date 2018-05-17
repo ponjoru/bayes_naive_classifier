@@ -5,7 +5,7 @@
 ƒанный файл содержит определение класса, используемого
 дл€ предобработки исходного текста. <br>
 */
-#include "stdafx.h"
+//#include "stdafx.h"
 #include "DataProcess.h"
 
 DataProcess::DataProcess()

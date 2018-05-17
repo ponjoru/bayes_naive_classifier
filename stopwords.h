@@ -1,11 +1,10 @@
 /**
 \file
-\brief Заголовочный файл с описанием класса 
+\brief Файл с объявлением класса StopWords
 
-Данный файл содержит определение класса, используемого
-для удаления стоп - слов из вектора, состоящего из слов исходного текста
+Данный файл содержит объявление класса, используемого
+для предобработки исходного текста, а именно удаление стоп слов.
 */
-#pragma once
 #ifndef STOP_WORDS_H
 #define STOP_WORDS_H
 #include "Headers.h"
@@ -47,4 +46,5 @@ public:
 		*/
 		void removeWord(vector<wstring>* words);
 };
-#endif
+#pragma once
+#endif // STOP_WORDS_H

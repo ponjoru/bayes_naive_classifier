@@ -6,7 +6,7 @@
 Данный файл содержит определение класса, используемого
 для удаления стоп - слов из вектора, состоящего из слов исходного текста
 */
-#include "stdafx.h"
+//#include "stdafx.h"
 #include"stopwords.h"
 
 StopWords::StopWords()
@@ -64,13 +64,10 @@ bool StopWords::findWord(wstring word)
 
 void StopWords::removeWord(vector<wstring>* words)
 {
-	vector<wstring>::iterator it; //объявляю итератор it
-
-	bool checkWord;
-	int ind = 0;
+	size_t ind = 0;
 	do
 	{
-		checkWord = findWord((*words).at(ind));
+		bool checkWord = findWord((*words).at(ind));
 		if (checkWord)
 			(*words).erase((*words).begin() + ind);
 		else ind++;

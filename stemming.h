@@ -12,7 +12,7 @@
 #define STEM_H
 
 #include <algorithm>
-#include "utilities.h"
+//#include "utilities.h"
 
 template<typename T>
 /** Метод определяет, является ли заданное значение одним из двух других заданных значений

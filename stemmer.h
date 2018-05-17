@@ -1,8 +1,14 @@
-﻿#pragma once
+﻿/**
+\file
+\brief Файл с реализацией класса стеммера Портера для русского языка
 
-//#ifndef __RUSSIAN_STEM_H__
-//#define __RUSSIAN_STEM_H__
+Данный файл содержит реализацию класса, используемого
+для предобработки исходного текста, а именно стеммер.
+*/
 
+#ifndef __RUSSIAN_STEM_H__
+#define __RUSSIAN_STEM_H__
+#pragma once
 #include "stemming.h"
 ///Namespace for stemming classes.
 namespace stemming
@@ -487,11 +493,11 @@ namespace stemming
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_A_LOWER, RUSSIAN_A_UPPER, RUSSIAN_EM_LOWER, RUSSIAN_EM_UPPER, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, RUSSIAN_YA_LOWER, RUSSIAN_YA_UPPER, RUSSIAN_EM_LOWER, RUSSIAN_EM_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, RUSSIAN_IE_LOWER, RUSSIAN_IE_UPPER, RUSSIAN_EM_LOWER, RUSSIAN_EM_UPPER, false) ||
-				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_IE_LOWER, RUSSIAN_IE_UPPER, RUSSIAN_VE_LOWER, RUSSIAN_VE_UPPER, false) ||
-				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_O_LOWER, RUSSIAN_O_UPPER, RUSSIAN_VE_LOWER, RUSSIAN_VE_UPPER, false) ||
-				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, RUSSIAN_IE_LOWER, RUSSIAN_IE_UPPER, false) ||
+				//stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_IE_LOWER, RUSSIAN_IE_UPPER, RUSSIAN_VE_LOWER, RUSSIAN_VE_UPPER, false) ||
+				//stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_O_LOWER, RUSSIAN_O_UPPER, RUSSIAN_VE_LOWER, RUSSIAN_VE_UPPER, false) ||
+				//stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, RUSSIAN_IE_LOWER, RUSSIAN_IE_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_SOFT_SIGN_LOWER, RUSSIAN_SOFT_SIGN_UPPER, RUSSIAN_IE_LOWER, RUSSIAN_IE_UPPER, false) ||
-				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, false) ||
+				//stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_IE_LOWER, RUSSIAN_IE_UPPER, RUSSIAN_SHORT_I_LOWER, RUSSIAN_SHORT_I_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_IE_LOWER, RUSSIAN_IE_UPPER, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, RUSSIAN_IE_LOWER, RUSSIAN_IE_UPPER, false) ||
@@ -502,7 +508,7 @@ namespace stemming
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, RUSSIAN_YU_LOWER, RUSSIAN_YU_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_SOFT_SIGN_LOWER, RUSSIAN_SOFT_SIGN_UPPER, RUSSIAN_YU_LOWER, RUSSIAN_YU_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, RUSSIAN_YA_LOWER, RUSSIAN_YA_UPPER, false) ||
-				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_SOFT_SIGN_LOWER, RUSSIAN_SOFT_SIGN_UPPER, RUSSIAN_YA_LOWER, RUSSIAN_YA_UPPER, false) ||
+				//stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_SOFT_SIGN_LOWER, RUSSIAN_SOFT_SIGN_UPPER, RUSSIAN_YA_LOWER, RUSSIAN_YA_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_O_LOWER, RUSSIAN_O_UPPER, RUSSIAN_VE_LOWER, RUSSIAN_VE_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_IE_LOWER, RUSSIAN_IE_UPPER, RUSSIAN_VE_LOWER, RUSSIAN_VE_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_A_LOWER, RUSSIAN_A_UPPER, RUSSIAN_HA_LOWER, RUSSIAN_HA_UPPER, false) ||
@@ -514,7 +520,7 @@ namespace stemming
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_YA_LOWER, RUSSIAN_YA_UPPER, RUSSIAN_HA_LOWER, RUSSIAN_HA_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_I_LOWER, RUSSIAN_I_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_A_LOWER, RUSSIAN_A_UPPER, false) ||
-				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_IE_LOWER, RUSSIAN_IE_UPPER, false) ||
+				//stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_IE_LOWER, RUSSIAN_IE_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_O_LOWER, RUSSIAN_O_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_U_LOWER, RUSSIAN_U_UPPER, false) ||
 				stem<string_typeT>::delete_if_is_in_rv(text, RUSSIAN_YU_LOWER, RUSSIAN_YU_UPPER, false) ||
@@ -594,4 +600,4 @@ namespace stemming
 
 /** @}*/
 
-//#endif //__RUSSIAN_STEM_H__
+#endif //__RUSSIAN_STEM_H__

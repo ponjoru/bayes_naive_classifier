@@ -5,8 +5,9 @@
 */
 int main(void)
 {
-	std::locale::global(std::locale(""));
+	//std::locale::global(std::locale(""));
 	std::ios::sync_with_stdio(false);
+	
 	BayesClassifier b_cl;
 	b_cl.run();
 	vector<double> results = b_cl.getResults();

@@ -1,3 +1,9 @@
+/**
+\file
+\brief Файл с объявлением используемых библиотек
+
+Данный файл содержит определение используемых библиотек и определение кастомных типов данных
+*/
 #ifndef HEADER_H
 #define HEADER_H
 
@@ -9,15 +15,7 @@
 #include <fstream>
 #include <locale.h>
 
-#define DEFAULT_CLASSES_AMOUNT 5
-#define TRAINING_TEXTS_AMOUNT 40
-#define FILE_ROOT "res/"
-#define FILE_EXTENSION ".txt"
-//параметр сглаживания для вычисления вероятностей
-#define ALFA 1
-
-
-typedef std::vector<std::wstring> word_arr;
-typedef std::map<std::wstring, int> classmap;
+typedef std::vector<std::wstring> word_arr; ///<Вектор слов
+typedef std::map<std::wstring, int> classmap; ///<Таблица из 2 столбцов: 1 - слово, 2 - частота этого слова в выборке
 #pragma once
-#endif
+#endif // HEADER_H
