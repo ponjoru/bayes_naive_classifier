@@ -109,6 +109,16 @@ public:
 	\return вектор результатов
 	*/
 	vector<double> getResults();
+	
+	/**
+	Поиск вероятности присвоения класса для конкретного слова
+	\param word слово
+	\param classname имя класса
+	\param class_size количество всех слов отнесенных к классу
+	\param unic_words число уникальных слов в тренировочных данных
+	\return вероятность принадлежности слова классу
+	*/
+	double probability(wstring word, wstring classname, int class_size, int unic_words);
 private:
 
 	/**
@@ -154,15 +164,7 @@ private:
 	*/
 	int count(wstring word, wstring classname);
 
-	/**
-	Поиск вероятности присвоения класса для конкретного слова
-	\param word слово
-	\param classname имя класса
-	\param class_size количество всех слов отнесенных к классу
-	\param unic_words число уникальных слов в тренировочных данных
-	\return вероятность принадлежности слова классу
-	*/
-	double probability(wstring word, wstring classname, int class_size, int unic_words);
+	
 	
 	/**
 	Вычисление вероятности принадлежности входного текста к конкретному классу
