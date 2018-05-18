@@ -12,7 +12,9 @@ void BayesClassifier::run(void)
 {
 	wstring clsf_name = CLASSIFIER_PATH;
 	clsf_name += CLASSIFIER_NAME;
-	if (!setMethaInfo()) return;
+	if (!setMethaInfo())
+		return;
+	wcout << L"Success:: Metainformation was loaded" << endl;
 	if (saved_classifier)
 	{
 		if (!loadClassifier(clsf_name)) return;
@@ -20,9 +22,10 @@ void BayesClassifier::run(void)
 	else
 	{
 		train();
+		wcout << L"Success:: Training completed" << endl;
 		saveClassifier(clsf_name);
 	}
-	
+
 	if (DEBUG)
 	{
 		wcout << L"Тренировочная выборка:" << endl;
@@ -64,7 +67,7 @@ void BayesClassifier::train(void)
 	}
 	modifyTrainingMap(DEFAULT_BORDER);
 	if (DEBUG) printTrainingMap();
-	cout << "Info:: " << texts_amount << " files of " << TRAINING_TEXTS_AMOUNT << " were loaded" << endl;
+	cout << "Info:: " << texts_amount << " files of " << TRAINING_TEXTS_AMOUNT * classes.size() << " were loaded" << endl;
 }
 void BayesClassifier::execute(wstring filename)
 {
@@ -125,7 +128,7 @@ void BayesClassifier::saveClassifier(wstring &name)
 		stream << it->first << "#" << endl;
 		printClassmap(&(it->second), stream);
 	}
-	wcout << "Success:: Classifier was saved  - " << clsf_name << endl;
+	wcout << "Success:: Classifier " << clsf_name << " was saved"<< endl;
 }
 bool BayesClassifier::loadClassifier(wstring clsf_filename)
 {
@@ -165,6 +168,7 @@ bool BayesClassifier::loadClassifier(wstring clsf_filename)
 			training_map[classname][word] = stoi(frequency);
 		}
 	}
+	wcout << "Success:: Classifier " << clsf_filename << " was loaded" << endl;
 	return true;
 }
 
@@ -254,8 +258,8 @@ bool BayesClassifier::setMethaInfo()
 		wcout << L"Введите имя класса ";
 		wcin.imbue(locale("rus_rus.866"));
 		wcin >> classname_to_check;
-		if (training_map.find(classname_to_check) == training_map.end())
-			return false;
+		/*if (training_map.find(classname_to_check) == training_map.end())
+			return false;*/
 		break;
 	}
 	default:
