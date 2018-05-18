@@ -9,6 +9,8 @@
 #include"DataProcess.cpp"
 #include"Text.h"
 #include"Text.cpp"
+#include"BayesClassifier.h"
+#include"BayesClassifier.cpp"
 
 #define LANGUAGE "russian"
 
@@ -71,6 +73,9 @@ class TestModules : public QObject
 
 	void test_updateData_data();
 	void test_updateData();
+
+	void test_probability_data();
+	void test_probability();
 
 };
 
@@ -349,8 +354,83 @@ void TestModules::test_updateData()
 	t.updateData(String_input);
 	QFETCH(vector<wstring>, Vector_output2);
 	vector<wstring> r1 = t.data;
-
 	QCOMPARE(r1, Vector_output2);
 }
+
+void TestModules::test_probability_data() 
+{
+	QTest::addColumn<wstring>("Word");
+	QTest::addColumn<wstring>("Classname");
+	QTest::addColumn<int>("Class_Size");
+	QTest::addColumn<double>("P");
+
+	wstring word1, word2, word3, word4, word5, word6;
+	wstring className1, className2, className3, className4;
+
+	className1 = L"economics";
+	className2 = L"politics";
+	className4 = L"it";
+	className3 = L"sports";
+	/////////////////////////
+	int ClassSizeEconomics = 15;
+	int ClassSizeIt = 11;
+	int ClassSizePolitics = 15;
+	int ClassSports = 16;
+
+	/////////////////////////
+	word1 = L"бирж";
+	word2 = L"смартфон";
+	word3 = L"путин";
+	word4 = L"доллар";
+	word5 = L"ракет";
+	word6 = L"гречк";
+
+	////////////////////////////////
+	
+	QTest::newRow("word1_economics_economics") << word1 << className1 << ClassSizeEconomics << (double)7/72;
+	QTest::newRow("word1_economics_politics")  << word1 << className2 << ClassSizePolitics  << (double)1/72 ;
+	QTest::newRow("word1_economics_sports")    << word1 << className3 << ClassSports		<< (double)1/73 ;
+	QTest::newRow("word1_economics_it")        << word1 << className4 << ClassSizeIt		<< (double)1/68;
+
+	QTest::newRow("word2_it_economics")        << word2 << className1 << ClassSizeEconomics << (double)1/72;
+	QTest::newRow("word2_it_politics")		   << word2 << className2 << ClassSizePolitics  << (double)1/72;
+	QTest::newRow("word2_it_sports")		   << word2 << className3 << ClassSports		<< (double)1/73;
+	QTest::newRow("word2_it_it")			   << word2 << className4 << ClassSizeIt		<< (double)5/68;
+
+	QTest::newRow("word3_politics_economics")  << word3 << className1 << ClassSizeEconomics << (double)1/72;
+	QTest::newRow("word3_politics_politics")   << word3 << className2 << ClassSizePolitics  << (double)4/72;
+	QTest::newRow("word3_politics_sports")     << word3 << className3 << ClassSports		<< (double)1/73;
+	QTest::newRow("word3_politics_it")		   << word3 << className4 << ClassSizeIt		<< (double)1/68;
+
+	QTest::newRow("word4_economics_economics") << word4 << className1 << ClassSizeEconomics << (double)3/72;
+	QTest::newRow("word4_economics_politics")  << word4 << className2 << ClassSizePolitics  << (double)1/72;
+	QTest::newRow("word4_economics_sports")    << word4 << className3 << ClassSports        << (double)1/73;
+	QTest::newRow("word4_economics_it")		   << word4 << className4 << ClassSizeIt        << (double)1/68;
+
+	QTest::newRow("word5_politics_economics")  << word5 << className1 << ClassSizeEconomics << (double)1/72;
+	QTest::newRow("word5_politics_politics")   << word5 << className2 << ClassSizePolitics  << (double)2/72;
+	QTest::newRow("word5_politics_sports")     << word5 << className3 << ClassSports		<< (double)1/73;
+	QTest::newRow("word5_politics_it")		   << word5 << className4 << ClassSizeIt		<< (double)1/68;
+
+	QTest::newRow("word6_economics")		   << word6 << className1 << ClassSizeEconomics << (double)1/72;
+	QTest::newRow("word6_politics")			   << word6 << className2 << ClassSizePolitics  << (double)1/72;
+	QTest::newRow("word6_sports")			   << word6 << className3 << ClassSports		<< (double)1/73;
+	QTest::newRow("word6_it")				   << word6 << className4 << ClassSizeIt		<< (double)1/68;
+
+}
+void TestModules::test_probability() 
+{
+
+	BayesClassifier b;
+	b.loadClassifier(L"Classifier/TestClassifier.txt");
+	int unic_words = 57;
+	QFETCH(wstring, Word);
+	QFETCH(wstring, Classname);
+	QFETCH(int, Class_Size);
+	QFETCH(double, P);
+	double res = b.probability(Word, Classname, Class_Size, unic_words);
+	QCOMPARE(res, P);
+}
+
 QTEST_MAIN(TestModules)
 #include "main.moc"
