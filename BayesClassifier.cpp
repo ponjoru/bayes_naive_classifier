@@ -60,7 +60,7 @@ void BayesClassifier::train(void)
 			data_processor.processingWords(&data);
 			updateTrainingMap(data, classname);
 			class_metha[classname]++;
-			wcout << "Success:: File '" << file_name_i << "' with training data was proccessed" << endl;
+			if (DEBUG) wcout << "Success:: File '" << file_name_i << "' with training data was proccessed" << endl;
 			
 		}
 		//if (DEBUG) printTrainingMap();
@@ -76,6 +76,7 @@ void BayesClassifier::execute(wstring filename)
 	if (!txt.loadData(filename, class_name))
 	{
 		wcout << "Error:: File '" << filename << "' with data to analyze not found" << endl;
+		return;
 	}
 	word_arr data = txt.getData();
 	data_processor.processingWords(&data);
