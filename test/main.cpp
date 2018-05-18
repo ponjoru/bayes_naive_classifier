@@ -7,6 +7,9 @@
 #include"stopwords.cpp"
 #include"DataProcess.h"
 #include"DataProcess.cpp"
+#include"Text.h"
+#include"Text.cpp"
+
 #define LANGUAGE "russian"
 
 using namespace std;
@@ -21,7 +24,7 @@ vector<wstring> stringToVec(wstring wstr)
 	do
 	{
 		c = wstr[count];
-		if (c >= L'A' && c <= L'РЇ' || c >= L'Р°' && c <= L'СЏ')
+		if (c >= L'A' && c <= L'Я' || c >= L'а' && c <= L'я')
 			tmp.push_back(c);
 
 		else
@@ -45,6 +48,14 @@ vector<wstring> loadData(string filename)
 	res = stringToVec(line);
 	return res;
 }
+wstring loadFile(string filename)
+{
+	wifstream stream(filename);
+	stream.imbue(locale(LANGUAGE));
+	wstring line;
+	getline(stream, line);
+	return line;
+}
 class TestModules : public QObject
 {
 	Q_OBJECT
@@ -58,38 +69,41 @@ class TestModules : public QObject
 	void test_processingWords_data();
 	void test_processingWords();
 
+	void test_updateData_data();
+	void test_updateData();
+
 };
 
 void TestModules::test_stemmer_data()
 {
 	QTest::addColumn<wstring>("Word");
 	QTest::addColumn<wstring>("Stem");
-	//Р‘Р›РћРљ 1. РЎР»РѕРІРѕ РєР°Рє СЃСѓС„РёРєСЃ РёР»Рё РѕРєРѕРЅС‡Р°РЅРёРµ
-	wstring word1(L"РІС€Рё");
-	wstring stem1(L"РІС€Рё");
+	//БЛОК 1. Слово как суфикс или окончание
+	wstring word1(L"вши");
+	wstring stem1(L"вши");
 
-	wstring word2(L"РµР№");
-	wstring stem2(L"Рµ");
+	wstring word2(L"ей");
+	wstring stem2(L"е");
 
-	wstring word3(L"РµРј");
-	wstring stem3(L"РµРј");
+	wstring word3(L"ем");
+	wstring stem3(L"ем");
 
-	wstring word4(L"РµС€СЊ");
-	wstring stem4(L"РµС€");
+	wstring word4(L"ешь");
+	wstring stem4(L"еш");
 
-	wstring word5(L"СѓСЋС‚");
-	wstring stem5(L"СѓСЋС‚");
+	wstring word5(L"уют");
+	wstring stem5(L"уют");
 
 
-	//РћРљРћРќР§РђРќРР• / РЎРЈР¤Р¤РРљРЎ РџРћР›РќРћРЎРўР¬Р® Р’РҐРћР”РЇРў Р’ РЎРўР•РњРњРЈ
-	wstring word6(L"РїРѕСЋС‚");
-	wstring stem6(L"РїРѕСЋС‚");
+	//ОКОНЧАНИЕ / СУФФИКС ПОЛНОСТЬЮ ВХОДЯТ В СТЕММУ
+	wstring word6(L"поют");
+	wstring stem6(L"поют");
 
-	wstring word7(L"С‚Р°СЋС‰Р°СЏ");
-	wstring stem7(L"С‚Р°СЋС‰");
+	wstring word7(L"тающая");
+	wstring stem7(L"тающ");
 
-	wstring word8(L"РµРЅРѕС‚");
-	wstring stem8(L"РµРЅРѕС‚");
+	wstring word8(L"енот");
+	wstring stem8(L"енот");
 
 	QTest::newRow("word_1_as_an_end") << word1 << stem1;
 	QTest::newRow("word_2_as_an_end") << word2 << stem2;
@@ -100,77 +114,77 @@ void TestModules::test_stemmer_data()
 	QTest::newRow("word_7_end_in_stemm") << word7 << stem7;
 	QTest::newRow("word_8_end_in_stemm") << word8 << stem8;
 
-	// РџР РћР’Р•Р РљРђ РќРђ РљРђР–Р”РЈР® Р“Р РЈРџРџРЈ РћРљРћРќР§РђРќРР™
-	wstring word9(L"РґР°Р»СЊРЅРµР№С€РµРµ");
-	wstring stem9(L"РґР°Р»СЊРЅ");
+	// ПРОВЕРКА НА КАЖДУЮ ГРУППУ ОКОНЧАНИЙ
+	wstring word9(L"дальнейшее");
+	wstring stem9(L"дальн");
 
 	QTest::newRow("word_9_SUPERLATIVE") << word9 << stem9;
 
-	wstring word10(L"РјРѕР»РѕРґРѕСЃС‚СЊ");
-	wstring stem10(L"РјРѕР»РѕРґ");
+	wstring word10(L"молодость");
+	wstring stem10(L"молод");
 
 	QTest::newRow("word_10_DERIVATIONAL") << word10 << stem10;
 
-	//РЅРёС‡РµРіРѕ РЅРµ СѓРґР°Р»СЏРµРј
-	wstring word11(L"СЌРєРѕРЅРѕРјРёСЃС‚");
-	wstring stem11(L"СЌРєРѕРЅРѕРјРёСЃС‚");
+	//ничего не удаляем
+	wstring word11(L"экономист");
+	wstring stem11(L"экономист");
 	QTest::newRow("word_11_nothing is deleted") << word11 << stem11;
 
-	wstring word12(L"РјР°РјР°");
-	wstring stem12(L"РјР°Рј");
+	wstring word12(L"мама");
+	wstring stem12(L"мам");
 	QTest::newRow("word_12_NOUN") << word12 << stem12;
 
-	wstring word13(L"Р·Р°РїР»С‹РІР°С‚СЊ");
-	wstring stem13(L"Р·Р°РїР»С‹РІР°");
+	wstring word13(L"заплывать");
+	wstring stem13(L"заплыва");
 
-	wstring word14(L"СѓС…РѕРґРёС‚Рµ");
-	wstring stem14(L"СѓС…РѕРґ");
+	wstring word14(L"уходите");
+	wstring stem14(L"уход");
 
 	QTest::newRow("word_13_VERB") << word13 << stem13;
 	QTest::newRow("word_14_VERB") << word14 << stem14;
 
-	wstring word15(L"СЃРјРѕС‚СЂСЏСЃСЊ");
-	wstring stem15(L"СЃРјРѕС‚СЂ");
+	wstring word15(L"смотрясь");
+	wstring stem15(L"смотр");
 	QTest::newRow("word_15_REFLXIVE") << word15 << stem15;
 
-	wstring word16(L"СЃР»РѕРјР°РЅРЅС‹Р№");
-	wstring stem16(L"СЃР»РѕРјР°");
+	wstring word16(L"сломанный");
+	wstring stem16(L"слома");
 	QTest::newRow("word_16_PARTICIPLE") << word16 << stem16;
 
 
-	wstring word17(L"РЅРѕРІРѕСЃС‚РЅРѕР№");
-	wstring stem17(L"РЅРѕРІРѕСЃС‚РЅ");
+	wstring word17(L"новостной");
+	wstring stem17(L"новостн");
 	QTest::newRow("word_17_ADJECTIVE") << word17 << stem17;
 
 
-	wstring word18(L"РїРѕРєР°СЏРІС€РёСЃСЊ");
-	wstring stem18(L"РїРѕРєР°СЏ");
+	wstring word18(L"покаявшись");
+	wstring stem18(L"покая");
 	QTest::newRow("word_18_RERFECT_GERUND") << word18 << stem18;
 
-	//РќР•РЎРљРћР›Р¬РљРћ РћРљРћРќР§РђРќРР™ Р”Р›РЇ РЈР”РђР›Р•РќРРЇ
-	wstring word19(L"РѕС‚СЃС‚СЂР°РЅРёРІС€РёСЃСЊ");
-	wstring stem19(L"РѕС‚СЃС‚СЂР°РЅ");
+	//НЕСКОЛЬКО ОКОНЧАНИЙ ДЛЯ УДАЛЕНИЯ
+	wstring word19(L"отстранившись");
+	wstring stem19(L"отстран");
 
-	wstring word20(L"РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅС‹Р№");
-	wstring stem20(L"РёРЅС„РѕСЂРјР°С†РёРѕРЅ");
+	wstring word20(L"информационный");
+	wstring stem20(L"информацион");
 
-	wstring word21(L"СЃС‚СЂР°С…СѓСЋС‰РёР№СЃСЏ");
-	wstring stem21(L"СЃС‚СЂР°С…");
+	wstring word21(L"страхующийся");
+	wstring stem21(L"страх");
 
 	QTest::newRow("word_18_several_endings") << word19 << stem19;
 	QTest::newRow("word_20_several_endings") << word20 << stem20;
 	QTest::newRow("word_21_several_endings") << word21 << stem21;
 	
-	wstring word22(L"РІСЂРµРјСЏРёСЃС‡РёСЃР»РµРЅРёРµ");
-	wstring stem22(L"РІСЂРµРјСЏРёСЃС‡РёСЃР»РµРЅ");
+	wstring word22(L"времяисчисление");
+	wstring stem22(L"времяисчислен");
 	QTest::newRow("word_22_compound_word") << word22 << stem22;
 
-	wstring word23(L"РїР°СЂРѕС…РѕРґ");
-	wstring stem23(L"РїР°СЂРѕС…РѕРґ");
+	wstring word23(L"пароход");
+	wstring stem23(L"пароход");
 	QTest::newRow("word_23_nothing is deleted") << word23 << stem23;
 
-	wstring word24(L"СЃСѓРјРµР»");
-	wstring stem24(L"СЃСѓРјРµР»");
+	wstring word24(L"сумел");
+	wstring stem24(L"сумел");
 	QTest::newRow("word_23_nothing is deleted") << word24 << stem24;
 
 }
@@ -189,34 +203,34 @@ void TestModules::test_deleteStopWords_data()
 	vector<wstring> inputStr1, inputStr2, inputStr3, inputStr4, inputStr5, inputStr6, inputStr7, inputStr8;
 	vector<wstring> withoutStop1, withoutStop2, withoutStop3, withoutStop4, withoutStop5, withoutStop6, withoutStop7, withoutStop8;
 
-	// СЃС‚РѕРї СЃР»РѕРІР° РІ РЅР°С‡Р°Р»Рµ СЃС‚СЂРѕРєРё
-	inputStr6 = stringToVec(L"РІ РїРµС‚РµСЂР±СѓСЂРіРµ РѕС‚РєСЂС‹Р»Р°СЃСЊ РІС‹СЃС‚Р°РІРєР°");
-	withoutStop6 = stringToVec(L"РїРµС‚РµСЂР±СѓСЂРіРµ РѕС‚РєСЂС‹Р»Р°СЃСЊ РІС‹СЃС‚Р°РІРєР°");
+	// стоп слова в начале строки
+	inputStr6 = stringToVec(L"в петербурге открылась выставка");
+	withoutStop6 = stringToVec(L"петербурге открылась выставка");
 
-	//СЃС‚РѕРї СЃР»РѕРІР° РІ РЅР°С‡Р°Р»Рµ Рё СЃРµСЂРµРґРёРЅРµ СЃС‚СЂРѕРєРё
-	inputStr1 = stringToVec(L"РІРѕ С„Р»РѕСЂРёРґРµ РЅР° Р±РµСЂРµРі РІС‹РЅРµСЃР»Рѕ РѕР±Р»РѕРјРєРё РєРѕСЂР°Р±Р»СЏ");
-	withoutStop1 = stringToVec(L"С„Р»РѕСЂРёРґРµ Р±РµСЂРµРі РІС‹РЅРµСЃР»Рѕ РѕР±Р»РѕРјРєРё РєРѕСЂР°Р±Р»СЏ");
+	//стоп слова в начале и середине строки
+	inputStr1 = stringToVec(L"во флориде на берег вынесло обломки корабля");
+	withoutStop1 = stringToVec(L"флориде берег вынесло обломки корабля");
 
-	//4 СЃС‚РѕРї СЃР»РѕРІР° РїРѕРґСЂСЏРґ 
-	inputStr2 = stringToVec(L"СЌС‚Рѕ Р±С‹Р»Рѕ РїРѕ РјРЅРѕРіРѕС‡РёСЃР»РµРЅРЅС‹Рј РїСЂРѕСЃСЊР±Р°Рј");
-	withoutStop2 = stringToVec(L"РїСЂРѕСЃСЊР±Р°Рј");
+	//4 стоп слова подряд 
+	inputStr2 = stringToVec(L"это было по многочисленным просьбам");
+	withoutStop2 = stringToVec(L"просьбам");
 
-	//СЃС‚РѕРї СЃР»РѕРІРѕ РІ РєРѕРЅС†Рµ
-	inputStr3 = stringToVec(L"СЃСЂРµРґРЅРёРµ РѕРїС‚РѕРІС‹Рµ С†РµРЅС‹ РІС‹СЂРѕСЃР»Рё РЅР°");
-	withoutStop3 = stringToVec(L"СЃСЂРµРґРЅРёРµ РѕРїС‚РѕРІС‹Рµ С†РµРЅС‹ РІС‹СЂРѕСЃР»Рё");
+	//стоп слово в конце
+	inputStr3 = stringToVec(L"средние оптовые цены выросли на");
+	withoutStop3 = stringToVec(L"средние оптовые цены выросли");
 
-	// РЅРµС‚ СЃС‚РѕРї СЃР»РѕРІ
-	inputStr4 = stringToVec(L"СѓС‡РµРЅС‹Рµ СѓС‚РѕС‡РЅРёР»Рё РІСЂРµРјСЏ РїР°РґРµРЅРёСЏ РєРёС‚Р°Р№СЃРєРѕР№ СЃС‚Р°РЅС†РёРё");
-	withoutStop4 = stringToVec(L"СѓС‡РµРЅС‹Рµ СѓС‚РѕС‡РЅРёР»Рё РїР°РґРµРЅРёСЏ РєРёС‚Р°Р№СЃРєРѕР№ СЃС‚Р°РЅС†РёРё");
+	// нет стоп слов
+	inputStr4 = stringToVec(L"ученые уточнили время падения китайской станции");
+	withoutStop4 = stringToVec(L"ученые уточнили падения китайской станции");
 
-	//СЃС‚СЂРѕРєР° РёР· СЃС‚РѕРї СЃР»РѕРІ
-	inputStr7 = stringToVec(L"РѕРЅ РѕРґРЅР°Р¶РґС‹ РіРѕРІРѕСЂРёР» С€РµСЃС‚СЊ СЂР°Р· РїРѕРґСЂСЏРґ");
+	//строка из стоп слов
+	inputStr7 = stringToVec(L"он однажды говорил шесть раз подряд");
 
-	// СЃС‚РѕРї СЃР»РѕРІР° РІ СЃРµСЂРµРґРёРЅРµ СЃС‚СЂРѕРєРё
-	inputStr5 = stringToVec(L"СЃРІСЏР·Р°С‚СЊСЃСЏ СЃ СЂРµРґР°РєС†РёРµР№ РёР»Рё СЃРѕРѕР±С‰РёС‚СЊ");
-	withoutStop5 = stringToVec(L"СЃРІСЏР·Р°С‚СЊСЃСЏ СЂРµРґР°РєС†РёРµР№ СЃРѕРѕР±С‰РёС‚СЊ");
-	inputStr8 = stringToVec(L"СЃРґРµСЂР¶РёРІР°С‚СЊ СЂРѕСЃС‚ С†РµРЅ РїСЂРёС€Р»РѕСЃСЊ СЂРµР·РµСЂРІРЅРѕРјСѓ Р±Р°РЅРєСѓ РєРѕС‚РѕСЂС‹Р№ СЃСѓРјРµР»");
-	withoutStop8 = stringToVec(L"СЃРґРµСЂР¶РёРІР°С‚СЊ СЂРѕСЃС‚ С†РµРЅ РїСЂРёС€Р»РѕСЃСЊ СЂРµР·РµСЂРІРЅРѕРјСѓ Р±Р°РЅРєСѓ СЃСѓРјРµР»");
+	// стоп слова в середине строки
+	inputStr5 = stringToVec(L"связаться с редакцией или сообщить");
+	withoutStop5 = stringToVec(L"связаться редакцией сообщить");
+	inputStr8 = stringToVec(L"сдерживать рост цен пришлось резервному банку который сумел");
+	withoutStop8 = stringToVec(L"сдерживать рост цен пришлось резервному банку сумел");
 	QTest::newRow("string_1_at_the_beginning_middle") << inputStr1 << withoutStop1;
 	QTest::newRow("string_2_at_four_in_a_row") << inputStr2 << withoutStop2;
 	QTest::newRow("string_3_at_the_end") << inputStr3 << withoutStop3;
@@ -241,14 +255,14 @@ void TestModules::test_processingWords_data()
 	QTest::addColumn<vector<wstring>>("Words_input");
 	QTest::addColumn<vector<wstring>>("Words_processed");
 
-	vector<wstring> inputStr1, inputStr2, inputStr3, inputStr4, inputStr5, inputStr6, inputStr7;
-	vector<wstring> processedStr1, processedStr2, processedStr3, processedStr4, processedStr5, processedStr6, processedStr7;
+	vector<wstring> inputStr1, inputStr2, inputStr3, inputStr4, inputStr5, inputStr6;
+	vector<wstring> processedStr1, processedStr2, processedStr3, processedStr4, processedStr5, processedStr6;
 
-	inputStr1 = stringToVec(L"РѕРЅ РѕРґРЅР°Р¶РґС‹ РіРѕРІРѕСЂРёР» С€РµСЃС‚СЊ СЂР°Р· РїРѕРґСЂСЏРґ РїРѕ РјРЅРѕРіРѕС‡РёСЃР»РµРЅРЅС‹Рј");
+	inputStr1 = stringToVec(L"он однажды говорил шесть раз подряд по многочисленным");
 	QTest::newRow("string_1_all_stop_words") << inputStr1 << processedStr1;
 
-	inputStr2 = stringToVec(L"РµРЅРѕС‚ РµСЃС‚ РїР°СЂРѕС…РѕРґ");
-	processedStr2 = stringToVec(L"РµРЅРѕС‚ РµСЃС‚ РїР°СЂРѕС…РѕРґ");
+	inputStr2 = stringToVec(L"енот ест пароход");
+	processedStr2 = stringToVec(L"енот ест пароход");
 
 	QTest::newRow("string_2_without_changes") << inputStr2 << processedStr2;
 
@@ -272,10 +286,71 @@ void TestModules::test_processingWords()
 {
 	QFETCH(vector<wstring>, Words_input);
 	QFETCH(vector<wstring>, Words_processed);
+
 	DataProcess process;
 	process.processingWords(&Words_input);
 
 	QCOMPARE(Words_input, Words_processed);
+}
+void TestModules::test_updateData_data()
+{
+	QTest::addColumn<wstring>("String_input");
+	QTest::addColumn<vector<wstring>>("Vector_output2");
+	vector<wstring> processedStr1, processedStr2, processedStr3;
+	wstring in1 = loadFile("test_1.txt");
+	/////////////////////////////////
+	processedStr1.push_back(L"если");
+	processedStr1.push_back(L"начинаешь");
+	processedStr1.push_back(L"играть");
+	processedStr1.push_back(L"баскетбол");
+	processedStr1.push_back(L"математику");
+	processedStr1.push_back(L"сейчас"); 
+	processedStr1.push_back(L"делают");
+
+	/////////////////////////////////
+	QTest::newRow("String_1") << in1 << processedStr1;
+	wstring in2 = loadFile("test_2.txt");
+	/////////////////////////////////
+	processedStr2.push_back(L"куринные");
+	processedStr2.push_back(L"рулетики");
+	processedStr2.push_back(L"фаршированные");
+	processedStr2.push_back(L"яйцом");
+	processedStr2.push_back(L"сыром");
+	processedStr2.push_back(L"заленью");
+
+	/////////////////////////////////
+	QTest::newRow("String_2") << in2 << processedStr2;
+
+	wstring in3 = loadFile("test_3.txt");
+	/////////////////////////////////
+	processedStr3.push_back(L"сдача");
+	processedStr3.push_back(L"отчетности");
+	processedStr3.push_back(L"отнимают");
+	processedStr3.push_back(L"времени");
+	processedStr3.push_back(L"сил");
+	processedStr3.push_back(L"сдача");
+	processedStr3.push_back(L"отчетности");
+	processedStr3.push_back(L"отнимают");
+	processedStr3.push_back(L"времени");
+	processedStr3.push_back(L"сил");
+	processedStr3.push_back(L"сдача");
+	processedStr3.push_back(L"отчетности");
+	processedStr3.push_back(L"отнимают");
+	processedStr3.push_back(L"времени");
+	processedStr3.push_back(L"сил");
+	/////////////////////////////////
+	QTest::newRow("String_3") << in3 << processedStr3;
+
+}
+void TestModules::test_updateData()
+{
+	Text t;
+	QFETCH(wstring, String_input);
+	t.updateData(String_input);
+	QFETCH(vector<wstring>, Vector_output2);
+	vector<wstring> r1 = t.data;
+
+	QCOMPARE(r1, Vector_output2);
 }
 QTEST_MAIN(TestModules)
 #include "main.moc"
