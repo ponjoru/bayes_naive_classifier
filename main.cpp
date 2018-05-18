@@ -12,10 +12,14 @@ int main(void)
 	b_cl.run();
 	vector<double> results = b_cl.getResults();
 	wcout << L"Результаты:" << endl;
+	int k = 0;
 	for (auto it : results)
-		cout << it << " ";
+	{
+		wcout << b_cl.classes[k] << L" - " << it << endl;
+		k++;
+	}
 	cout << endl;
-	int k;
+	
 	wcin >> k;
 	return 0;
 }

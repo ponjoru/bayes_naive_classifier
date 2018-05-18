@@ -77,7 +77,7 @@ void BayesClassifier::execute(wstring filename)
 	word_arr data = txt.getData();
 	data_processor.processingWords(&data);
 	updateExeMap(data);
-	printClassmap(&exe_map, wcout);
+	if (DEBUG) printClassmap(&exe_map, wcout);
 	/*int k = count(L"пес", L"собака");
 	int m = classSize(L"собака");
 	int n = countUnicWords();*/
@@ -305,9 +305,9 @@ double BayesClassifier::p(wstring classname, int unic_words)
 			k *= p;
 			result *= p;
 		}
-		wcout << k << endl;
+		//wcout << k << endl;
 	}
-	wcout << "P(class) = " << class_metha[classname] << "/" << double(texts_amount) << endl;
+	if (DEBUG) wcout << "P(class) = " << class_metha[classname] << "/" << double(texts_amount) << endl;
 	result *= (class_metha[classname] / double(texts_amount));
 	return result;
 }
@@ -317,7 +317,7 @@ double BayesClassifier::probability(wstring word, wstring classname, int class_s
 	//wcout << L"count(word, classname) = " << count(word, classname) << endl;
 	//wcout << L"unique words = " << unic_words << endl;
 	//wcout << L"class_size = " << class_size << endl;
-	wcout << "P(" << word << "|" << classname << ") = " << count(word, classname) + ALFA << "/" << class_size + ALFA * unic_words << endl;
+	if (DEBUG)wcout << "P(" << word << "|" << classname << ") = " << count(word, classname) + ALFA << "/" << class_size + ALFA * unic_words << endl;
 	return (count(word, classname) + ALFA) / double(class_size + ALFA * unic_words);
 }
 
