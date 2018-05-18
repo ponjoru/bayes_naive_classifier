@@ -31,7 +31,7 @@ enum exe_mode
 
 #define FILE_EXTENSION L".txt" ///<Расширение текстовых файлов обучающей выборки
 #define FILE_TO_CHECK L"test.txt" ///<Файл требующий классификации
-#define FOLDER_WITH_TEXTS L"res_test/" ///<Имя папки в которой находятся папки с текстами обучающей выборки
+#define FOLDER_WITH_TEXTS L"res/" ///<Имя папки в которой находятся папки с текстами обучающей выборки
 //#define FOLDER_WITH_TEXTS L"res/"
 //#define FOLDER_WITH_TEXTS L"test/"
 

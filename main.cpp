@@ -15,5 +15,7 @@ int main(void)
 	for (auto it : results)
 		cout << it << " ";
 	cout << endl;
+	int k;
+	wcin >> k;
 	return 0;
 }
