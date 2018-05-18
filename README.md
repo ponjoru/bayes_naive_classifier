@@ -1,5 +1,5 @@
 # Bayes Naive Classifier
-<a href="http://www.picshare.ru/view/8460334/" target="_blank"><img src="http://www.picshare.ru/uploads/180301/p4cC1p7vQg.png" border="0" width="930" height="456" title="Хостинг картинок PicShare.ru"></a>
+<a href="http://www.picshare.ru/view/8804821/" target="_blank"><img src="http://www.picshare.ru/uploads/180518/Y718FC71VB.jpg" border="0" width="500" height="285" title="Хостинг картинок PicShare.ru"></a>
 ## Введение. Цель проекта.
 #### Введение
 Классификация текста является распространенной задачей и может встретиться в разных сферах жизни.
@@ -34,26 +34,31 @@
 |Процессор|Intel Core 2 Duo|Intel Core i3|Intel Core i3-530 и аналогичные|
 |RAM|512 Mb|1 GB|
 |Место на жестком диске|20 Mb|60 Mb| 
+
 -----------------------------------
 ## Требования к программному обеспечению
 - Windows 7(x86/x64) / Windows 8 / Windows 10
 - Microsoft Visual Studio 2015, так же возможна работа на более ранних версиях
 - Qt Creator 5.6
-## Средства разработки программного продукта
-### Средства реализации программного кода
-##### Язык программирования
+
+## Средства разработки программного обеспечения
+##### Среда разработки
+Microsoft Visual Studio 2017
+##### Тестирование
+QTest (QT 5.6)
+##### Система управления версиями DVCS
+GitHub Desktop
+##### Автоматическая проверка стиля и синтаксиса cppcheck
+Cpp Check Code Analysis Tools 1.83
+##### Автоматическое построение документации
+Doxygen 1.8.14
+##### Языки программирования:
 С++
-##### Средства создания пользовательского интерфейса 
-QT
-##### Средства управления версиями программного кода
-DVCS (Github)
-##### Средства получения исполняемого кода 
-MS Visual Studio
 ##### Отладчики 
 MS Visual Studio
 ##### Средства тестирования программ
 QTest
-##### Средства построения документации
+##### Автоматическое построение документации
 Автоматическое построение документации с помощью doxygen
 ##### Средства проверки стиля и синтксиса
 Автоматическая проверка стиля и синтаксиса cppcheck
@@ -112,4 +117,3 @@ QTest
 3.	habrahabr.ru [Байесовский классификатор](https://habrahabr.ru/post/146449/)
 4.	crypto.pp.ua [Байесовский классификатор](http://crypto.pp.ua/2011/04/bajesovskij-klassifikator/)
 5.	tartarus.org [Стеммер Портера](https://tartarus.org/martin/PorterStemmer/)
-
