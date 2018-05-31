@@ -1,4 +1,4 @@
-#include "BayesClassifier.h"
+ï»¿#include "BayesClassifier.h"
 
 BayesClassifier::BayesClassifier()
 {
@@ -28,10 +28,10 @@ void BayesClassifier::run(void)
 
 	if (DEBUG)
 	{
-		wcout << L"Òðåíèðîâî÷íàÿ âûáîðêà:" << endl;
+		wcout << L"Ð¢Ñ€ÐµÐ½Ð¸Ñ€Ð¾Ð²Ð¾Ñ‡Ð½Ð°Ñ Ð²Ñ‹Ð±Ð¾Ñ€ÐºÐ°:" << endl;
 		printTrainingMap();
-		wcout << L"×èñëî òåêñòîâ â âûáîðêå - " << texts_amount << endl;
-		wcout << L"×èñëî òåêñòîâ â â êàæäîì êëàññå:" << endl;
+		wcout << L"Ð§Ð¸ÑÐ»Ð¾ Ñ‚ÐµÐºÑÑ‚Ð¾Ð² Ð² Ð²Ñ‹Ð±Ð¾Ñ€ÐºÐµ - " << texts_amount << endl;
+		wcout << L"Ð§Ð¸ÑÐ»Ð¾ Ñ‚ÐµÐºÑÑ‚Ð¾Ð² Ð² Ð² ÐºÐ°Ð¶Ð´Ð¾Ð¼ ÐºÐ»Ð°ÑÑÐµ:" << endl;
 		printClassmap(&class_metha, wcout);
 		wcout << L"-----------------------------------------" << endl;
 	}
@@ -82,8 +82,8 @@ void BayesClassifier::execute(wstring filename)
 	data_processor.processingWords(&data);
 	updateExeMap(data);
 	if (DEBUG) printClassmap(&exe_map, wcout);
-	/*int k = count(L"ïåñ", L"ñîáàêà");
-	int m = classSize(L"ñîáàêà");
+	/*int k = count(L"Ð¿ÐµÑ", L"ÑÐ¾Ð±Ð°ÐºÐ°");
+	int m = classSize(L"ÑÐ¾Ð±Ð°ÐºÐ°");
 	int n = countUnicWords();*/
 	
 
@@ -212,7 +212,7 @@ vector<double> BayesClassifier::getResults()
 bool BayesClassifier::setMethaInfo()
 {
 	char command;
-	wcout << endl << L"Èñïîëüçîâàòü ñîõðàíåííûé êëàññèôèêàòîð? y/n (Èíà÷å áóäåò ñîçäàí íîâûé êëàññèôèêàòîð) - ";
+	wcout << endl << L"Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒ ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð½Ñ‹Ð¹ ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€? y/n (Ð˜Ð½Ð°Ñ‡Ðµ Ð±ÑƒÐ´ÐµÑ‚ ÑÐ¾Ð·Ð´Ð°Ð½ Ð½Ð¾Ð²Ñ‹Ð¹ ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€) - ";
 	cin >> command;
 
 	switch (command)
@@ -233,11 +233,11 @@ bool BayesClassifier::setMethaInfo()
 		return false;
 	}
 	}
-	wcout << L"Ââåäèòå èìÿ ôàéëà, â êîòîðîì ñîäåðæèòñÿ òåêñò, êîòîðûé âû õîòèòå êëàññèôèöèðîâàòü - ";
+	wcout << L"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ Ñ„Ð°Ð¹Ð»Ð°, Ð² ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ð¼ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ñ‚ÑÑ Ñ‚ÐµÐºÑÑ‚, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ Ð²Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸Ñ†Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ - ";
 	wcin >> file_to_check;
-	wcout << endl << L"1.Âåðîÿòíîñòü ïðèíàäëåæíîñòè âñåì êëàññàì" << endl;
-	wcout << L"2.Âåðîÿòíîñòü ïðèíàäëåæíîñòè îäíîìó êîíêðåòíîìó êëàññó" << endl;
-	wcout << L"Âûáåðèòå ðåæèì âûïîëíåíèÿ (1 èëè 2): - ";
+	wcout << endl << L"1.Ð’ÐµÑ€Ð¾ÑÑ‚Ð½Ð¾ÑÑ‚ÑŒ Ð¿Ñ€Ð¸Ð½Ð°Ð´Ð»ÐµÐ¶Ð½Ð¾ÑÑ‚Ð¸ Ð²ÑÐµÐ¼ ÐºÐ»Ð°ÑÑÐ°Ð¼" << endl;
+	wcout << L"2.Ð’ÐµÑ€Ð¾ÑÑ‚Ð½Ð¾ÑÑ‚ÑŒ Ð¿Ñ€Ð¸Ð½Ð°Ð´Ð»ÐµÐ¶Ð½Ð¾ÑÑ‚Ð¸ Ð¾Ð´Ð½Ð¾Ð¼Ñƒ ÐºÐ¾Ð½ÐºÑ€ÐµÑ‚Ð½Ð¾Ð¼Ñƒ ÐºÐ»Ð°ÑÑÑƒ" << endl;
+	wcout << L"Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ñ€ÐµÐ¶Ð¸Ð¼ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ñ (1 Ð¸Ð»Ð¸ 2): - ";
 	
 	
 	cin >> command;
@@ -253,10 +253,10 @@ bool BayesClassifier::setMethaInfo()
 	{
 		mode_ = SINGLE;
 		wcout << L"-------------------------------------------------------------------------------------------------------------" << endl;
-		wcout << L"Âûáåðåòå êëàññ èç ïåðå÷íÿ, ê êîòîðîìó âû õîòèòå ïðîâåðèòü ïðèíàäëåæíîñòü òåêóùåãî òåêñòà" << endl;
+		wcout << L"Ð’Ñ‹Ð±ÐµÑ€ÐµÑ‚Ðµ ÐºÐ»Ð°ÑÑ Ð¸Ð· Ð¿ÐµÑ€ÐµÑ‡Ð½Ñ, Ðº ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ð¼Ñƒ Ð²Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð¿Ñ€Ð¾Ð²ÐµÑ€Ð¸Ñ‚ÑŒ Ð¿Ñ€Ð¸Ð½Ð°Ð´Ð»ÐµÐ¶Ð½Ð¾ÑÑ‚ÑŒ Ñ‚ÐµÐºÑƒÑ‰ÐµÐ³Ð¾ Ñ‚ÐµÐºÑÑ‚Ð°" << endl;
 		for (auto it : classes)
 			wcout << L"* " << it << endl;
-		wcout << L"Ââåäèòå èìÿ êëàññà ";
+		wcout << L"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ ÐºÐ»Ð°ÑÑÐ° ";
 		wcin.imbue(locale("rus_rus.866"));
 		wcin >> classname_to_check;
 		
