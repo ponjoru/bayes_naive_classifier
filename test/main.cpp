@@ -1,16 +1,16 @@
 //#include <QtCore/QCoreApplication>
 #include <QtTest/QtTest>
 
-#include"stemmer.h"
-#include"Headers.h"
-#include"stopwords.h"
-#include"stopwords.cpp"
-#include"DataProcess.h"
-#include"DataProcess.cpp"
-#include"Text.h"
-#include"Text.cpp"
-#include"BayesClassifier.h"
-#include"BayesClassifier.cpp"
+#include"../src/stemmer.h"
+#include"../src/Headers.h"
+#include"../src/stopwords.h"
+#include"../src/stopwords.cpp"
+#include"../src/DataProcess.h"
+#include"../src/DataProcess.cpp"
+#include"../src/Text.h"
+#include"../src/Text.cpp"
+#include"../src/BayesClassifier.h"
+#include"../src/BayesClassifier.cpp"
 
 #define LANGUAGE "russian"
 
