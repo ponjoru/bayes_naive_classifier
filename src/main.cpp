@@ -1,7 +1,7 @@
-#include "BayesClassifier.h"
+п»ї#include "BayesClassifier.h"
 
 /**
-Точка входа программы. Инициализация класса BayesClassifier. Вычисление результатов. Печать результатов.
+РўРѕС‡РєР° РІС…РѕРґР° РїСЂРѕРіСЂР°РјРјС‹. РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєР»Р°СЃСЃР° BayesClassifier. Р’С‹С‡РёСЃР»РµРЅРёРµ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ. РџРµС‡Р°С‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ.
 */
 int main(void)
 {
@@ -11,7 +11,7 @@ int main(void)
 	BayesClassifier b_cl;
 	b_cl.run();
 	vector<double> results = b_cl.getResults();
-	wcout << L"Результаты:" << endl;
+	wcout << L"Р РµР·СѓР»СЊС‚Р°С‚С‹:" << endl;
 	int k = 0;
 	for (auto it : results)
 	{

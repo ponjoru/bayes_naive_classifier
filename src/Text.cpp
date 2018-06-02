@@ -1,4 +1,4 @@
-#include "Text.h"
+п»ї#include "Text.h"
 
 
 bool Text::loadData(wstring filename, wstring& class_name)
@@ -19,9 +19,9 @@ bool Text::loadData(wstring filename, wstring& class_name)
 }
 void Text::updateData(wstring line) 
 {
-	wchar_t *ptr = 0;       //Указатель
+	wchar_t *ptr = 0;       //РЈРєР°Р·Р°С‚РµР»СЊ
 	wchar_t *rowstate;
-	ptr = wcstok_s(&line[0], separators, &rowstate); //Выделяем первое слово из строки
+	ptr = wcstok_s(&line[0], separators, &rowstate); //Р’С‹РґРµР»СЏРµРј РїРµСЂРІРѕРµ СЃР»РѕРІРѕ РёР· СЃС‚СЂРѕРєРё
 	while (ptr) 
 	{               
 		if (wcslen(ptr) > 1)
@@ -34,7 +34,7 @@ void Text::updateData(wstring line)
 			//std::transform(tmp.begin(), tmp.end(), tmp.begin(), ::tolower);
 			data.push_back(wstring(ptr));
 		}
-		ptr = wcstok_s(0, separators, &rowstate);   //Подбираем слово
+		ptr = wcstok_s(0, separators, &rowstate);   //РџРѕРґР±РёСЂР°РµРј СЃР»РѕРІРѕ
 	}
 }
 wstring Text::getClassName()
